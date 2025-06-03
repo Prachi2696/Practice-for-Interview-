@@ -1,0 +1,177 @@
+Here are some common Git interview questions with short, simple answers:
+
+1. What is Git?
+   - Git is a version control system that helps track changes in files and collaborate with others on projects.
+
+2. What is a repository in Git?
+   - A repository is a storage space where your project's files and their history are stored.
+
+3. What is the difference between Git and GitHub?
+   - Git is the tool for version control, while GitHub is a platform to host and share Git repositories online.
+
+4. What is a branch in Git?
+   - A branch is a separate line of development that allows you to work on changes without affecting the main project.
+
+5. How do you create a new branch?
+   - Use git branch <branch-name> to create a branch and git checkout <branch-name> to switch to it. Alternatively, git checkout -b <branch-name> does both.
+
+6. What is a commit in Git?
+   - A commit is a saved snapshot of your changes in the repository.
+
+7. How do you stage and commit changes?
+   - Use git add <file-name> to stage changes and git commit -m "message" to commit them.
+
+8. What is the purpose of git pull?
+   - git pull fetches changes from a remote repository and merges them into your local branch.
+
+9. What is the difference between git pull and git fetch?
+   - git fetch only downloads changes, while git pull also merges them into your current branch.
+
+10. How do you resolve a merge conflict?
+    - Open the conflicting file, manually fix the conflicts, stage the file, and then commit the changes.
+
+11. What does git clone do?
+    - git clone copies a remote repository to your local machine.
+
+12. What is git stash?
+    - git stash temporarily saves your changes without committing them, allowing you to work on something else.
+
+13. What is the use of git merge?
+    - git merge integrates changes from one branch into another.
+
+14. How do you check the status of your Git repository?
+    - Use git status to see which files have been modified, staged, or committed.
+
+15. How do you undo a commit?
+    - You can use git revert <commit-hash> to create a new commit that undoes the previous one or git reset <commit-hash> to go back to a previous state.
+
+These questions and answers cover the basics of Git, which are often asked in interviews.
+
+
+1. What is a remote repository?
+   - A remote repository is a version of your project hosted on the internet or another network.
+
+2. How do you add a remote repository in Git?
+   - Use git remote add <name> <url> to link a remote repository to your local one.
+
+3. What is git push?
+   - git push uploads your commits from the local repository to a remote repository.
+
+4. What is the difference between git reset and git revert?
+   - git reset moves the branch to a previous state, removing commits, while git revert creates a new commit to undo the changes.
+
+5. What are the different types of Git resets?
+   - There are three types: 
+     - --soft: Keeps changes in the working directory.
+     - --mixed: Keeps changes unstaged.
+     - --hard: Deletes changes permanently.
+
+6. What is git rebase?
+   - git rebase moves or combines a sequence of commits to another base commit, making the project history cleaner.
+
+7. What is the .gitignore file?
+   - A file that tells Git which files or directories to ignore and not track in the repository.
+
+8. What is the HEAD in Git?
+   - HEAD is a pointer to the current commit in your branch.
+
+9. How do you see the commit history?
+   - Use git log to view the commit history.
+
+10. What is a fork in Git?
+    - A fork is a copy of a repository created on a different account, usually for contributing to a project.
+
+11. What is the use of git cherry-pick?
+    - git cherry-pick applies a specific commit from one branch to another.
+
+12. What is a tag in Git?
+    - A tag is a marker for specific points in Git history, often used to label releases.
+
+13. How do you delete a branch in Git?
+    - Use git branch -d <branch-name> to delete a local branch and git push origin --delete <branch-name> to delete a remote branch.
+
+14. What is git diff?
+    - git diff shows the differences between commits, branches, or the working directory.
+
+15. What is the difference between git merge and git rebase?
+    - git merge creates a merge commit to combine branches, while git rebase moves commits from one branch on top of another, creating a linear history.
+
+16. What is a detached HEAD state in Git?
+    - It occurs when HEAD is not pointing to the latest commit of a branch, but to a specific commit, causing any new commits to be isolated.
+
+17. How do you rename a branch in Git?
+    - First, switch to the branch you want to rename with git checkout <branch-name>, then use git branch -m <new-name> to rename it.
+
+18. What is the use of git commit --amend?
+    - It allows you to modify the most recent commit, either by changing the commit message or adding new changes.
+
+19. How do you squash commits in Git?
+    - Use git rebase -i HEAD~<n> where <n> is the number of commits to combine, then mark commits as squash in the interactive rebase editor.
+
+20. How do you track a new file in Git?
+    - Use git add <file-name> to start tracking a file, and then commit it with git commit -m "message".
+
+These questions explore more advanced Git concepts that may come up in technical interviews.
+
+
+1. How do you rename a file in Git?
+   - Use git mv <old-filename> <new-filename> to rename a file and track it.
+
+2. What is the difference between git fork and git clone?
+   - git fork creates a copy of a repository under your GitHub account, while git clone copies a repository to your local machine.
+
+3. How do you check out a previous commit?
+   - Use git checkout <commit-hash> to switch to a previous commit. You’ll be in a detached HEAD state.
+
+4. What does git reflog do?
+   - git reflog shows a log of where HEAD has been, allowing you to recover lost commits.
+
+5. How do you unstage a file?
+   - Use git reset <file-name> to remove the file from the staging area.
+
+6. What is git blame?
+   - git blame shows who last modified each line of a file, useful for identifying who made certain changes.
+
+7. How do you remove a file from Git without deleting it from your filesystem?
+   - Use git rm --cached <file-name> to untrack the file but keep it on your disk.
+
+8. What is git bisect?
+   - git bisect helps you find the commit that introduced a bug by doing a binary search through your commit history.
+
+9. How do you discard local changes in a file?
+   - Use git checkout -- <file-name> to discard changes and revert to the last committed version.
+
+10. What is git clean?
+    - git clean removes untracked files from your working directory. Use git clean -f to force it.
+
+11. What is the difference between origin and upstream in Git?
+    - origin is usually your forked version of the repository, while upstream is the original repository you forked from.
+
+12. How do you track changes in a subdirectory only?
+    - Navigate to the subdirectory and initialize a Git repository with git init, making it a separate repo.
+
+13. What is the difference between git stash pop and git stash apply?
+    - Both apply stashed changes, but git stash pop also removes the changes from the stash list, while git stash apply keeps them.
+
+14. What does git submodule do?
+    - git submodule allows you to include and manage other Git repositories as subdirectories of your main project.
+
+15. How do you remove a remote branch?
+    - Use git push origin --delete <branch-name> to delete a remote branch.
+
+16. What is a fast-forward merge?
+    - A fast-forward merge happens when there are no new commits on the destination branch, so Git moves the branch pointer forward without creating a new merge commit.
+
+17. How do you list all branches in Git?
+    - Use git branch to list local branches and git branch -r for remote branches.
+
+18. What is the git config command used for?
+    - git config is used to configure Git settings like username, email, or alias commands.
+
+19. How do you view a specific commit?
+    - Use git show <commit-hash> to view the details of a particular commit, including changes made and the commit message.
+
+20. How do you undo the last commit but keep the changes?
+    - Use git reset --soft HEAD~1 to undo the last commit while keeping the changes staged.
+
+These questions dig deeper into more specific and advanced aspects of Git usage, which can be useful for more comprehensive interviews.

@@ -1,0 +1,19 @@
+serializable
+hashing
+equals and hashcode
+bean injection
+http method
+useeffect 
+usestate and usereducer
+autowiring
+left and right join
+hashmap works in which 
+how you pass data from multiple components 
+Unique Version UID
+how you post data payload
+put and post difference and return status
+java 8 
+functional Interface
+can multiple method write in functional interface
+scope of beans
+injection types - constructor and method

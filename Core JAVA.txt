@@ -1,0 +1,3972 @@
+ Object - It is a real-life entity which has state and behaviour.It is basically a physical entity. It does  consume space.
+
+Class - It is a blue-print from which object gets created . It is basically a logical entity. It does not consume space.
+
+OOPS Pillar :-
+
+1.Abstraction- Abstraction is the process of extracting the relevant properties of an object that are relative to the perspective of the viewer,  while ignoring nonessential 		details. 
+Eg: Doctor: name,blood group, age  and Interviewer: name ,age ,education
+
+2.Encapsulation- Encapsulation is the process of separating the aspects of an object into external and internal aspects. The external aspects of an object need to be visible or known , to other objects in the system.  The internal aspects are details that should not affect other parts of the system. Hiding the internal aspects of an object means that they can be changed without affecting external aspects of the system .  
+Eg: ATM external aspects insert card and withdraw money but internal aspects algorithm of atm and validation of card
+
+3.Inheritance- When a class gets the properties from its parent class while extending .It provides code reusability. It is used to achieve runtime polymorphism.
+
+4.Polymorphism- Polymorphism is an ability to appear in many forms. 
+Eg: Engineer as well as Manager class might have a method called CalculateSalary(). However, at runtime depending on whether the underlying object is of type Engineer or Manager correct version of the method is called.
+Overloading
+Overriding
+
+------------------------------------------------------------
+	constructor
+ 
+is a special member function.
+
+It is special because
+
+a) it is used to initialize instance members.
+b) it has no return type
+c) it is called as soon as object is created.
+
+
+There are 2 types of constructors in java.
+
+a) default or no-arg constructor
+b) parameterized constructor
+
+a) default or no-arg constructor
+	it is a constructor with no arguments.
+e.g.
+
+	MyClass()
+	{
+	}
+
+when u don't define any constructor in the class, compiler provides default or no-arg constructor.
+
+b) parameterized constructor
+	constructor with at least one argument.
+e.g.
+	MyClass(int k)
+	{
+	}
+this has to be explicitly provided by the programmer.
+
+
+public class MyClass11
+{
+	int num;
+	MyClass11(int num)
+	{
+		this.num=num;
+	}
+	MyClass11()
+	{
+	}
+	p.s.vm
+	 
+	{
+		MyClass11 m2=new MyClass11(200); // you need parameterized constructor
+		MyClass11 m1=new MyClass11(); // you need default or no-arg constructor
+	}
+}
+
+java does not have destructor.
+just before object gets garbage collected, following method gets called.
+
+protected void finalize()
+{
+}
+
+Since there is no guarantee as to when exactly object will get garbage collected, u can not rely upon "finalize" method to release the resources such as Connection , Socket etc.
+
+Garbage collection can not be forced in java. U can just make a request for Garbage Collection , by invoking a method "System.gc()". or "Runtime.getRuntime().gc()".
+-----------------------------------------------
+Can static member function access non-static data ? 
+	No. because static member function can be called without creating object. When object is not created, non-static member is not allocated memory.
+
+Can non-static member function access static data ?
+	Yes. Because in order to invoke non-static member function u need to create object and by that time static members are already allocated memory
+	
+--------------------------------------------------
+static block
+
+syntax
+
+	static
+	{
+
+	}
+
+a) static block is used to access static variables.
+b) static block is executed as soon as class gets loaded.
+c) u can define more than one static blocks inside class definition. They will be executed in the order in which they defined.
+
+
+static block  vs  static member function
+
+static member function needs to be called explicitly whereas static blocks are called implicitly , as soon as class gets loaded.
+
+
+-------------------------------
+
+static member
+
+static members are allocated memory as soon as class gets loaded in the memory. They are not associated with the instance. 
+Since they are not associated with instance, they are having only one copy in the memory, irrespective of no.of instances created.
+They can be accessed by class name. They are also called as "class variables".
+
+static member function is used to access private static member.
+
+e.g.
+ 
+Account object
+	non-static members - accid, name, balance
+	static member - rateofinterest.
+
+-----------------------------------
+Class Loader is the class responsible for finding and loading classes at runtime
+There are 3 types of class loaders in java
+a)	BootStrap Class Loader or Premordial Class Loader- BootStrap class loader loads those classes which are essential for JVM to function properly. 
+b)	Extension Class Loader- This classloader loads the classes in lib\ext directory of the JRE.
+c)	System Class Loader- It loads the classes and jars specified by the CLASSPATH environment 
+------------------------------------
+
+
+
+What is class "Class" in java ?
+
+In java whenever any class gets loaded it is represented by instance of class "Class".
+This instance holds information about loaded class such as member variables, methods,constructors etc.
+
+In java whenever any class gets loaded, it is represented by an instance of class Class.
+
+Every time JVM creates an object, it also creates a java.lang.Class object that describes the type of the object. 
+
+All instances of the same class share the same Class object and you can obtain the Class object by calling the getClass() method of the object. This method is inherited from java.lang.Object
+
+
+-------------------------------
+NullPointerException:-
+When a reference contains null and if u invoke a method on it , u get NullPointerException.
+
+	solution: - before invoking method on any reference just check it does not contain null.
+
+---------------------------
+
+NON-STATIC BLOCK:is used for - if we have many constructors inside a class and those constructors need to have some common statements.
+instead of repeate those statements in each constructor,we place those statements in non-static block.
+
+e.g counter which is incremented in each constructor , to keep a track of number of objects created.
+-----------------------------------
+what is "this"?
+
+"this" is a reference which refers to the current or invoking object.
+
+What is the importance of "this"?
+	when u create multiple objects, u have those many copies of instance members however , u have only one copy of member function/s.
+        In that case how will member function keep a track of invoking object ? 
+	member function/s will come to know about invoking or current object through "this" reference.
+
+can we use "this" with static members?
+	no because this refers to object and static are not associated with objects.
+
+
+How can we use "this" keyword in program?
+	
+	private String name; //instance member
+	public void setName(String name)
+	{
+		this.name=name;
+	}
+
+here "this.name" is an instance member and "name" is a local member.
+
+
+------------------------------
+
+When a class gets loaded ?
+
+	a) implicitly
+
+			java MyClass8
+
+
+				or
+
+			emp e=new emp(); when u create first object of that class
+
+				or
+
+
+			emp.staticmemberfun();
+
+
+
+	b) explicitly
+
+		Class.forName("classname");
+
+
+
+
+e.g
+
+
+
+package core1;
+
+class A
+{
+	public A() {
+		super();
+		System.out.println("A no-arg constructor");
+	}
+	static
+	{
+		System.out.println("A static block");
+	}
+	static void fun1()
+	{
+		System.out.println("in A fun1");
+	}
+}
+
+class B
+{
+	public B() {
+		super();
+		System.out.println("B no-arg constructor");
+	}
+	static
+	{
+		System.out.println("B static block");
+	}
+	static void fun2()
+	{
+		System.out.println("in B fun2");
+	}
+}
+class C
+{
+	public C() {
+		super();
+		System.out.println("C no-arg constructor");
+	}
+	static
+	{
+		System.out.println("C static block");
+	}
+	static void fun3()
+	{
+		System.out.println("in C fun3");
+	}
+}
+
+public class Demo 
+{
+	static
+	{
+		System.out.println("Demo static block");
+	}
+	public static void main(String args[])
+	{
+		C ob1=new C();
+		C.fun3();
+	System.out.println("**********************************");	
+		A.fun1();
+		A ob2=new A();
+		
+	System.out.println("**********************************");
+		try {
+			Class.forName("core1.B");
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+}	
+
+	
+
+output:-
+
+Demo static block
+C static block
+C no-arg constructor
+in C fun3
+**********************************
+A static block
+in A fun1
+A no-arg constructor
+**********************************
+B static block
+
+
+---------------------------
+Accessibility modifiers	Same class 	Sub class in same package	Different class in same package	 Sub class in different package	 Different class in different package
+Private	Yes	No	No	No	no
+default	Yes	Yes	Yes	No	no
+Protected	Yes	Yes	Yes	Yes	no
+Public	Yes	Yes	Yes	Yes	yesju5
+  
+----------------------------------------
+Association, Composition, Aggregation
+
+  Aggregation is a specialize form of Association where all object have their own lifecycle but there is ownership and child object cannot belongs to another parent object. Let’s take an example of Department and teacher. A single teacher cannot belongs to multiple departments, but if we delete the department teacher object will not destroy. We can think about “has-a” relationship.
+
+
+Composition is again specialize form of Aggregation and we can call this as a “death” relationship. It is a strong type of Aggregation. Child object does not have their lifecycle and if parent object deletes all child object will also be deleted. Let’s take again an example of relationship between House and rooms. House can contain multiple rooms there is no independent life of room and any room cannot belongs to two different house if we delete the house room will automatically delete. Let’s take another example relationship between Questions and options. Single questions can have multiple options and option can not belong to multiple questions. If we delete questions options will automatically delete.
+
+
+
+-----------------------------------
+what is Binding?
+
+resolving function call with function body is called as Binding.
+
+how many types of Binding are there?
+
+2 types: early binding and late binding
+
+	early binding means resolving function call with function body at the compilation time.
+
+	late binding means resolving function call with function body at the runtime.
+
+Early vs. Late binding
+Early binding refers to events that occur at compile time. e.g. normal function calls, overloading of functions and operator.
+The main advantage to early binding is efficiency. Because all information necessary to call a function is determined at compile time, these types of function calls are very fast.
+
+late binding refers to function calls that are not resolved until runtime. virtual functions are used to achieve late binding. The object and the function are not linked until runtime. The main advantage of late binding is flexibility. and disadvanatage is slower
+ ----------------------------
+ OVERRIDING RULES:---
+ 
+ overriding  method may not declare any checked exception.
+
+class base
+{
+	public void disp()throws IOException
+	{
+	}
+}
+class sub extends base
+{
+	public void disp()
+	{
+	}
+}
+
+
+
+overriding method can declare same checked exception or its sub-type declared by overriden method.
+
+class base
+{
+	public void disp()throws IOException
+	{
+	}
+}
+class sub extends base
+{
+	public void disp()throws IOException
+	{
+	}
+}
+
+		or
+
+class base
+{
+	public void disp()throws IOException
+	{
+	}
+}
+class sub extends base
+{
+	public void disp()throws EOFException
+	{
+	}
+}
+
+overriding method can not declare checked exception not declared by overriden method.
+
+// following code will not work
+
+class base
+{
+	public void disp()throws IOException
+	{
+	}
+}
+class sub extends base
+{
+	public void disp()throws Exception
+	{
+	}
+}
+
+
+--------------------------------------
+
+1) arguments must be same otherwise it becomes "overloading".
+2) returntype of overriding can be co-variant.
+3) overriding method must be having same or more accessibility as compare to overridden method.
+4) overriding and checked-exception rule :-
+	a) overriding  method may not declare any checked exception.
+	b) overriding method can declare same checked exception or its sub-type declared by overriden method.
+	c) overriding method can not declare checked exception not declared by overriden method.
+
+---------------------------------------------
+
+StringBuffer is faster than String.
+
+StringBuffer is used when u need to do lots of modifications to your strings.
+
+String is immutable
+
+StringBuffer is mutable
+
+String s1="hello";
+s1+"hi";
+
+s1 will not be modified, rather it will create a new string "hellohi".
+
+thus increasing memory consumption proving the fact that string is immutable.
+
+StringBuffer sb=new StringBuffer("hello");
+
+if we say sb.append("hi");
+
+a new object is not created, rather existing object gets modified. thus reducing memory consumption.
+
+String uses + operator to concate the strings
+
+StringBuffer uses "concat" to do the same.
+
+String + operator uses 
+	StringBuffer internally
+	call append
+	
+	again convert StringBuffer to String
+
+
+Conclusion:
+
+	It is always recommended to work with StringBuffer
+		a) it is faster
+		b) less memory consumption
+
+
+
+------------------------------
+Abstract Class:---
+
+in java as soon as u define a class with "abstract" keyword, class becomes abstract.
+
+abstract class can not be instantiated.
+
+abstract class can contain abstract as well as non-abstract methods.
+
+abstract method is a method which is declared with "abstract" keyword. ( it can not be private)
+
+a child class of an abstract class has to provide implementation to the method which is declared "abstract" in parent class or
+ else make child class also "abstract".
+
+a class can not be "abstract" and "final" both.
+----------------------------------------------
+
+what is downcasting?
+
+conversion from base type to derived type is called as "downcasting".
+
+When to use downcasting?
+
+when base reference referring to child object (upcasting) and u want to invoke a method of child class (on the same object) which is not there in the base class, you need to use downcasting.
+------------------------------------------
+
+Interface is used when you want to define a contract and you don't know anything about implementation. (Here it is total abstraction as you don't know anything.)
+
+Abstract class is used when you know something and rely on others for what you don't know.(here it is partial abstraction as some of the things you know and some you don't know.)
+
+When to use abstract class in java?
+
+
+while designing Parent class, if u realize that there is some functionality compulsorily required in child classes but Parent class is not able to define it. 
+This functionality is a contract or abstract function. Since abstract function can not be declared inside non-abstract class, u have to make class as abstract.
+
+abstract class cannot be instantiated.
+	because abstract class is incomplete i.e. it has at least one contract [abstract method]
+
+can abstract class have a constructor?
+
+	yes, it will be invoked from sub class constructor when sub class gets instantiated.
+------------------------------------------------------
+INSTANCEOF OPERATOR
+
+In Java, instanceof operator is used to check the type of an object at runtime. It is the means by which your program can obtain run-time type information about an object. instanceof operator is also important in case of casting object at runtime. instanceof operator return boolean value, if an object reference is of specified type then it return true otherwise false.
+
+---------------------------------------------------
+Day 5
+String:-
+
+What is string pool?
+String pool is the memory space in heap memory specially allocated to store the string objects created using string literals. In String pool, there will be no two string objects having the same content.
+Whenever you create a string object using string literal, JVM first checks the content of the object to be created. If there exist an object in the string pool with the same content, then it returns the reference of that object. It doesn’t create a new object. If the content is different from the existing objects then only it creates new object.
+
+Why String is immutable?
+in case of String there is a possibility that more than one references may refer to same object
+ [from string pool]. here if String class is mutable what will happen is because of one reference other references will suffer. 
+That's why String is immutable.
+
+Intern Method-
+String Interning is a method of storing only one copy of each distinct String Value, which must be immutable.
+
+whenever we create a string using the new keyword, new memory is allocated in the heap for corresponding string, which is irrespective of the content of the array
+
+String str = new String("Welcome to JavaTpoint.");   
+String str1 = new String("Welcome to JavaTpoint");  
+System.out.println(str1 == str); // prints false  
+
+String str = new String("Welcome to JavaTpoint").intern(); // statement - 1  
+String str1 = new String("Welcome to JavaTpoint").intern(); // statement - 2  
+System.out.println(str1 == str); // prints true  
+
+public class InternExample{  
+public static void main(String args[]){  
+String s1=new String("hello");  
+String s2="hello";  
+String s3=s1.intern();//returns string from pool, now it will be same as s2  
+System.out.println(s1==s2);//false because reference variables are pointing to different instance  
+System.out.println(s2==s3);//true because reference variables are pointing to same instance  
+}}
+
+points to be remember:
+1) A string literal always invokes the intern() method, whether one mention the intern() method along with the string literal or not. For example,
+
+String s = "d".intern();  
+String p = "d"; // compiler treats it as String p = "d".intern();  
+System.out.println(s == p); // prints true  
+
+2) Whenever we create a String object using the new keyword, two objects are created. For example,
+
+String str = new ("Hello World");  
+Here, one object is created in the heap memory outside of the SCP because of the usage of the new keyword. As we have got the string literal too ("Hello World"); therefore, one object is created inside the SCP, provided the literal "Hello World" is already not present in the SCP.
+
+copy, concate, compare, 
+
+
+StringBuffer is faster than String.
+
+StringBuffer is used when u need to do lots of modifications to your strings.
+
+String is immutable
+
+StringBuffer is mutable
+
+String s1="hello";
+s1+"hi";
+
+s1 will not be modified, rather it will create a new string "hellohi".
+
+thus increasing memory consumption proving the fact that string is immutable.
+
+StringBuffer sb=new StringBuffer("hello");
+
+if we say sb.append("hi");
+
+a new object is not created, rather existing object gets modified. thus reducing memory consumption.
+
+String uses + operator to concate the strings
+
+StringBuffer uses "concat" to do the same.
+
+String + operator uses 
+	StringBuffer internally
+	call append
+	again convert StringBuffer to String
+
+
+Conclusion:
+
+	It is always recommended to work with StringBuffer
+		a) it is faster
+		b) less memory consumption
+
+
+StringBuilder Class usage:
+public class StringBuilderDemo1
+{
+	public static void main(String args[])
+	{
+		int num1=10,num2=20;
+		System.out.println(num1+"\t"+num2);
+	}
+}
+
+when compiler encounters 
+	System.out.println(num1+"\t"+num2);
+
+it does following:
+
+	System.out.println(new StringBuilder().append(num1).append("\t").append(num2));
+
+
+-------------------------------------------------------
+Interface is used when you want to define a contract and you don't know anything about implementation. (here it is total abstraction as you don't know anything.)
+
+	interface in java
+
+interfaces are abstract in nature. i.e. they can not be instantiated.
+
+interface can contain methods declaration. Method which is declared inside interface is by default "public" and "abstract".
+
+variable which is declared in interface is by default "public","static" and "final".
+
+a class can be derived from one or more interfaces. ("implements" keyword)
+
+child class has to define all the methods of parent interface/s otherwise u need to make child class as "abstract".
+
+one interface can be derived from one or more other interfaces. ("extends" keyword)
+
+if a class is derived from some other class and some interfaces, "extends" keyword should precede "implements".
+
+
+Interface:- “I only know methods names that I will require my job to be done. You have to provide body for these methods.”
+Implementors:- “Sure , we’ll provide body to all your methods but in our own way.”
+		That’s the contract.
+
+Abstract class:- “ some methods I know. I’ve implemented them. Some I don’t know, I want you to provide implementation to them.”
+Implementors:- “Sure , we’ll provide body to those methods but in our own way.”
+		That’ the combination of contract+implementation.
+
+
+
+----------------------------------------------------------
+
+protected void finalize()
+
+	finalize() method is called by garbage collector just before object gets garbage collected.
+
+we can override it in order to release the resources e.g. Socket , File, Database connection etc.
+
+However it is not guaranteed when exactly object gets garbage collected. Hence u cannot rely on "finalize()" method in order to release the resources. You have to have some other alternative for that.
+
+Garbage collection cannot be forced in Java. You can request it by using 
+
+	System.gc()
+
+		or
+	Runtime.getRuntime().gc()
+
+------------------------------------------------
+Equals and Hashcode Contract
+
+1.Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application.
+
+2.If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.
+
+3.It is not required that if two objects are unequal according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects must produce distinct integer results. However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hashtables.
+
+-------------------------------------------
+DEFAULT AND STATIC METHOD IN INTERFACE (DAY 5)
+
+---------------------------------------------
+
+WHY WRAPPER CLASS INTRODUCED?
+
+earlier versions of java:
+
+public class Demo
+{
+	static void show(Object ref)
+	{
+		S.o.p(ref);
+	}
+	main()
+	{
+		show(new String("hello")); // alld
+		show(new ArrayList());  // alld
+		show(new LinkedList()); // alld
+			int num=10;
+		show(num); // was not possible
+
+	}
+}
+
+Solution: Wrapper classes were introduced
+
+
+above program can be written as:
+
+
+public class Demo
+{
+	static void show(Object ref)
+	{
+		S.o.p(ref);
+	}
+	main()
+	{
+		show(new String("hello")); // alld
+		show(new ArrayList());  // alld
+		show(new LinkedList()); // alld
+			int num=10;
+		// show(num); // was not possible
+		
+		Integer ob=new Integer(num);
+
+		show(ob); // this is possible
+
+
+	}
+}
+
+Wrapper classes in java
+
+Wrapper classes are used to wrap primitives. in java Wrapper classes are available for each primitive.
+
+
+byte		Byte
+short		Short
+int		Integer
+long		Long
+
+float		Float
+double		Double
+
+char		Character
+
+boolean		Boolean
+
+all the wrapper classes are derived from "java.lang.Object". They all are "final".
+------------------------------------------
+CONVERT STRING TO INTEGER
+Integer.parseInt("string");
+
+Before JDK1.5
+
+	converting primitive to Wrapper
+
+
+	int num=10;
+
+	Integer ob=new Integer(num);
+
+
+JDK1.5 onwards
+
+	
+	int num=10;
+	Integer ob=num; // Autoboxing
+
+i.e. Autoboxing means assigning primitive to wrapper
+
+
+
+Before JDK1.5
+
+	converting Wrapper to primitive 
+
+
+	int num=10;
+
+	Integer ob=new Integer(num);
+
+	int temp=ob.intValue();
+
+
+JDK1.5 onwards
+
+
+	int num=10;
+	Integer ob=num; // Autoboxing
+	int temp=ob; // unboxing
+
+i.e. unboxing means assigning wrapper to primitive
+
+------------------------------------------
+Why we need wrapper class?
+
+suppose we have a method in java
+
+	void add(Object)
+
+in which we want to store any primitive value, we can not pass primitive directly to Object as they are not compatible.
+ e.g. Object class and int are not compatible.
+
+solution here is to convert int to Integer (autoboxing) and pass Integer to "add" method. 
+This is acceptable because Integer is a child class of Object.
+
+-----------------------------------------
+Bridge Method
+vararg
+--------------------------------------------
+black box and white box in inheritance 
+
+class person
+{
+	walk()
+	talk()
+	eat()
+	sleep()
+}
+
+class Weapon
+{
+	attack(){}
+}
+class Gun extends Weapon
+{
+	attack(){}
+}
+class Bomb extends Weapon
+{
+	attack(){}
+}
+class Sword extends Weapon
+{
+	attack(){}
+}
+class Soldier extends Person
+{
+	Weapon ref;//program to interface
+	
+	Soldier(Weapon ref)
+	{
+		this.ref=ref;
+	}
+	void perform()
+	{
+		// white box reuse   //  tightly coupled relationship
+		walk();
+		talk();
+		eat();
+		sleep();
+
+		// black box reuse       // loosely coupled relationship
+		ref.attack();
+	}
+}
+
+----------------------------------------------------------
+
+Overloading- considering 
+a)Widening (upcasting ) b)Autoboxing  c)Var-args
+
+Widening beats boxing
+Widening beats var-args
+
+boxing beats var-args
+
+
+	void disp(int x)
+	{
+		System.out.println("in int");
+	}
+	void disp(short y)
+	{
+		System.out.println("in short");
+	}
+
+	byte b=30;
+	disp(b);
+
+	Ans:- in short
+	Primitive widening uses the "smallest" method argument possible.
+
+
+
+class A
+{
+	void disp(Integer x)
+	{
+		S.o.p("in Integer");
+	}
+	void disp(int x)
+	{
+		S.o.p("in int");
+	}
+
+.......
+	int num=5;
+	disp(num);
+}
+
+	Ans:- in int
+	Boxing has taken a back seat
+
+
+
+class A
+{
+	void disp(Integer x)
+	{
+		S.o.p("in Integer");
+	}
+	void disp(long x)
+	{
+		S.o.p("in long");
+	}
+
+.......
+	int num=5;
+	disp(num);
+}
+	Ans:- in long
+	widening beats boxing
+
+
+
+class A
+{
+	void disp(int x,int y)
+	{
+		System.out.println("in two ints");
+	}
+	void disp(byte ...x)
+	{
+		System.out.println("in byte var arg");
+	}
+
+.....
+	byte a=3,b=6;
+	disp(a,b);
+}
+	Ans:- in two ints
+	Compiler chooses old style
+
+
+
+class A
+{
+	void disp(Byte x,Byte y)
+	{
+		System.out.println("in two Bytes");
+	}
+	void disp(byte ...x)
+	{
+		System.out.println("in byte var arg");
+	}
+
+.......
+	byte a=3,b=6;
+	disp(a,b);
+}
+	Ans:- in two Bytes
+	boxing beats var-args
+
+
+Imp:- Reference widening depends upon inheritance.
+Wrapper classes are peers to each other.
+
+e.g following code will not work
+
+	void disp(Long x)
+	{
+		System.out.println("in Long");
+	}
+
+	disp(new Integer(4));
+
+
+
+
+
+Overloading When combining Widening and Boxing.
+
+	void disp(Long x)
+	{
+		System.out.println("in Long");
+	}
+
+	byte b=4;  // byte will converted to long(widening) then long will convert to Long (boxing) 
+	disp(b);
+
+	Above code will not work
+
+
+compiler can do boxing followed by widening operation
+e.g Following code will work.
+
+	void disp(Object o)
+	{
+	System.out.println("in Object");
+	}
+
+	byte b=4;  //byte --> Byte(boxing) --> passed to Object(widen to)
+	disp(b);
+
+
+
+Overloading in combination with Var-args
+You can combine var-args either with widening or boxing , not both.
+
+e.g. Following code will not work because of "ambiguity"
+
+	void disp(long...x)
+	{
+		System.out.println("in long var args");
+	}
+	void disp(Integer...y)
+	{
+		System.out.println("in Integer var args");
+
+
+		int p=20,q=30;
+		disp(p,q);
+
+
+
+Rules For Oveloading methods using Widening, boxing, and var-args.
+
+1) Primitive widening uses the "smallest" (nearest path) method argument possible.
+2) Used individually, boxing and var-args are compatible with overloading.
+3) You cannot widen from one wrapper type to another (IS-A fails).
+4) You cannot widen and then box (An int can't become Long).
+5) You can box and then widen.(An int can become an Object, via Integer).
+6) You can combine var-args with either widening or boxing.
+
+
+-----------------------------------------------------------------------------------
+BRIDGE METHOD:-
+
+Bridge Methods in Java
+
+class base
+{
+	public Object disp()
+	{
+		System.out.println("base disp");
+		return null;
+	}
+}
+class sub extends base
+{
+	public String disp()
+	{
+		System.out.println("sub disp");
+		return null;
+	}
+}
+public class Demo
+{
+	public static void main(String args[])
+	{
+		base ref=new sub();
+		ref.disp();
+	}
+}
+
+After you compile above code
+	class sub extends base
+{
+    sub()
+    	   {
+    	   }
+
+    public String disp()
+    {
+        System.out.println("sub disp");
+        return null;
+    }
+
+    public  Object disp()
+    {
+        return disp();
+    }
+}
+
+Actually return types are also part of method signature for JVM. So for JVM these two methods [public Object disp()
+And public String disp() ]  are different. To solve this problem, compiler adds a bridge method [public Object disp() ] in Derived class [ sub ] which calls the covarient method [public String disp() ] .
+
+
+-------------------------------------------------------------------------
+********Exception Handling **********
+
+
+WHAT IS EXCEPTION? 
+An exception is an event, which occurs during the execution of a program, that interrupts the normal flow of the program's instructions.
+
+
+What is “handle or declare” rule?
+Ans:- a) whenever any method raises checked exception/s , method has to either handle [try….catch] or declare [throws] that checked exception/s.
+b) whenever u invoke a method which has declared [using throws] checked exception/s , caller method has to either handle [try….catch] or declare [throws] that checked exception/s.
+
+
+
+throws keyword is used to "declare" exception.
+
+what do you mean by "declaring" exception ?
+
+"Declaring" exception means propagating it to the caller and then it's caller's resposibility to "handle or declare".
+ 
+
+finally block gets executed irrespective of whether exception is raised or not.
+it can be used to release resources such as file,socket,database connection etc. since you can not rely upon "finalized" method for
+the same task.
+
+finally block can follow after catch (try..catch...finally ) or even after try (try...finally).
+
+finally block will not get executed if
+
+a) System.exit(0) is called inside try ,catch or finally block.
+
+b) exception gets raised in finally block itself.
+
+
+how to create user defined exception?
+	checked exception or unchecked exception
+
+for checked exception:
+
+	public class MyException extends Exception{}
+
+for unchecked exception:
+
+	public class MyException extends RuntimeException{}
+
+
+on what basis you will decide whether to create checked or unchecked exception?
+
+you create checked exception when you would like your client to take corrective action/s in case of exception.  i.e. 
+checked exception somehow enforces client to handle it. (using try...catch) and the corrective action/s can be taken inside 
+catch block.
+
+you create unchecked exception when you feel there is no need of any corrective action by client in case of exception.
+
+
+Throwable class has two type 
+a. Error
+b. Exception - IOException, SQLException, MalformedUrlException
+	i. RuntimeException- NullPointerException, NumberformatException, classCastException, IndexOutOfBoundException
+
+
+
+
+
+
+			Exception
+
+[ unchecked exceptions ]		[ checked exceptions ]
+RuntimeException				IOException
+[ due to programmer's logical			[ these can be raised in 
+mistake ]					a logically correct program ]
+[ they can be avoided using simple
+"if....else"  , so java does not enforce	[ java enforces  programmer to handle these ]								programmer to handle 
+these]
+                                                                                      
+
+NullPointerException				FileNotFoundException
+NumberFormatException				EOFFileException
+ArrayIndexOutOfBoundsException			SQLException
+ClassCastException
+
+
+
+
+
+exception can be raised by 
+	a) JVM
+		or
+	b) Application [ Developer ]
+
+
+When exception is raised , it happens in two steps :
+
+a) instantiation of that particular exception class
+b) throwing that exception (that instance) to the caller.
+
+
+Checked exceptions are those exceptions which can be raised in a correct ( logically correct) program. Client code has to either handle it using try…catch or declare it using throws.
+
+Unchecked exceptions are those exceptions which can be raised due to programming mistakes. ( logical mistakes )  There is no requirement ( handle or declare ) for the client code to deal with them.
+
+
+
+			ARM
+
+		Automatic Resource Management
+
+what is Resource Management?
+
+	it means releasing the resources once you used them.
+
+Before java7  programmer had to do Explicit Resource Management.
+
+	e.g
+
+try
+{
+	FileInputStream fis=new FileInputStream("abc.txt");
+		// code to read the file
+}
+catch(FileNotFoundException e)
+{
+	e.printStackTrace();
+}
+finally
+{
+	fis.close();
+}
+ 
+
+what is exactly Automatic Resource Management (ARM) ?
+
+	it means now (java7 onwards) programmer can write the code as follows:
+
+	// ARM block
+
+	try(FileInputStream fis=new FileInputStream("abc.txt"))
+	{
+		// code to read the file
+	}
+	catch(FileNotFoundException e)
+	{
+		e.printStackTrace();
+	}
+
+That's it. it means you don't have to define "finally" block.
+
+when you compile above code , compiler will convert this code into:
+
+try
+{
+	FileInputStream fis=new FileInputStream("abc.txt");
+		// code to read the file
+}
+catch(FileNotFoundException e)
+{
+	e.printStackTrace();
+}
+finally
+{
+	fis.close();
+}	
+
+That is compiler provide "finally" block which has "fis.close()" statement. So since compiler takes care of releasing resource/s , It is known as "Automatic Resource Management"
+
+can we write any class inside ARM block?
+
+	No. inside ARM block you can write only those classes which implement "AutoCloseable" or "Closeable" interface.
+
+-------------------
+	Assertions
+
+Assertions are used to test the program. The advantage is assertions are by default disable, u need to enable them.
+
+Assertions vs System.out.println statements while testing the code:
+	if u write S.o.p statements while testing the code, u need to remove or comment them while the code goes to client.
+
+	if u write assert statements u need not do anything as assertions are by default disable.
+
+
+-----------------------------------------------------
+REFLECTION API:
+Reflection is an API that is used to examine or modify the behavior of methods, classes, and interfaces at runtime. The required classes for reflection are provided under java.lang.reflect package which is essential in order to understand reflection.
+
+Reflection gives us information about the class to which an object belongs and also the methods of that class that can be executed by using the object.
+
+Through reflection, we can invoke methods at runtime irrespective of the access specifier used with them.
+
+Reflection can be used to get information about class, constructors, and methods
+ 
+Method 1: getDeclaredMethod(): It creates an object of the method to be invoked. 
+Class.getDeclaredMethod(name, parametertype)
+Method 2: invoke(): It invokes a method of the class at runtime we use the following method.
+Method.invoke(Object, parameter)
+Method 3: Class.getDeclaredField(FieldName): Used to get the private field. Returns an object of type Field for the specified field name. 
+Method 4: Field.setAccessible(true): Allows to access the field irrespective of the access modifier used with the field.
+--------------------------------------------------------------------
+
+CLONING IN JAVA:
+The object cloning is a way to create exact copy of an object. The clone() method of Object class is used to clone an object.
+
+The java.lang.Cloneable interface must be implemented by the class whose object clone we want to create. If we don't implement Cloneable interface, clone() method generates CloneNotSupportedException.
+
+protected Object clone() throws CloneNotSupportedException  
+
+Why use clone() method ?
+The clone() method saves the extra processing task for creating the exact copy of an object. If we perform it by using the new keyword, it will take a lot of processing time to be performed that is why we use object cloning.
+
+Advantage:- don't need to write lengthy and repetitive codes, easiest and most efficient way for copying objects, fastest way to copy array
+Disadvantage :-  change a lot of syntaxes,   implement cloneable interface while it doesn't have any methods in it, Object.clone() is protected, so we have to provide our own clone() and indirectly call Object.clone() from it, Object.clone() doesn't invoke any constructor
+
+example:
+class Student18 implements Cloneable{  
+int rollno;  
+String name;  
+  
+Student18(int rollno,String name){  
+this.rollno=rollno;  
+this.name=name;  
+}  
+  
+public Object clone()throws CloneNotSupportedException{  
+return super.clone();  
+}  
+  
+public static void main(String args[]){  
+try{  
+Student18 s1=new Student18(101,"amit");  
+  
+Student18 s2=(Student18)s1.clone();  
+  
+System.out.println(s1.rollno+" "+s1.name);  
+System.out.println(s2.rollno+" "+s2.name);  
+  
+}catch(CloneNotSupportedException c){}  
+  
+}  
+}  
+
+------------------------------------------------------------
+INNER CLASS :
+
+inner class refers to the class that is declared inside class or interface 
+There are basically four types of inner classes in java.:-
+1.Nested Inner Class
+2.Method Local Inner Classes
+3.Static Nested Classes
+4.Anonymous Inner Classes
+
+1.Nested Inner Class
+It can access any private instance variable of the outer class
+// Class 1
+// Helper classes
+class Outer {
+
+	// Class 2
+	// Simple nested inner class
+	class Inner {
+
+		// show() method of inner class
+		public void show()
+		{
+
+			// Print statement
+			System.out.println("In a nested class method");
+		}
+	}
+}
+
+// Class 2
+// Main class
+class Main {  
+
+	// Main driver method
+	public static void main(String[] args)
+	{
+
+		// Note how inner class object is created inside
+		// main()
+		Outer.Inner in = new Outer().new Inner();
+
+		// Calling show() method over above object created
+		in.show();
+	}
+}
+Output
+In a nested class method
+
+Note:  We can not have a static method in a nested inner class because an inner class is implicitly associated with an object of its outer class so it cannot define any static method for itself. For example, the following program doesn’t compile. But Since JAVA Version 16 we can have static members in our inner class also.
+
+// Java Program to Demonstrate Nested class
+// Where Error is thrown
+
+// Class 1
+// Outer class
+class Outer {
+
+	// Method defined inside outer class
+	void outerMethod()
+	{
+
+		// Print statement
+		System.out.println("inside outerMethod");
+	}
+
+	// Class 2
+	// Inner class
+	class Inner {
+
+		// Main driver method
+		public static void main(String[] args)
+		{
+
+			// Display message for better readability
+			System.out.println("inside inner class Method");
+		}
+	}
+}
+Output
+ERROR
+
+2.Method Local Inner Classes
+Inner class can be declared within a method of an outer class
+
+// Class 1
+// Outer class
+class Outer {
+
+	// Method inside outer class
+	void outerMethod()
+	{
+
+		
+		System.out.println("inside outerMethod");
+
+		// Class 2
+		// Inner class
+		// It is local to outerMethod()
+		class Inner {
+
+			// Method defined inside inner class
+			void innerMethod()
+			{
+
+				// Print statement whenever inner class is
+				// called
+				System.out.println("inside innerMethod");
+			}
+		}
+
+		// Creating object of inner class
+		Inner y = new Inner();
+
+		// Calling over method defined inside it
+		y.innerMethod();
+	}
+}
+
+// Class 3
+// Main class
+class GFG {
+
+	// Main driver method
+	public static void main(String[] args)
+	{
+
+		// Creating object of outer class inside main()
+		// method
+		Outer x = new Outer();
+
+		// Calling over the same method
+		// as we did for inner class above
+		x.outerMethod();
+	}
+}
+Output
+inside outerMethod
+inside innerMethod
+
+class Outer {
+void outerMethod() {
+	int x = 98;
+	System.out.println("inside outerMethod");
+	class Inner {
+		void innerMethod() {
+			System.out.println("x= "+x);
+		}
+	}
+	Inner y = new Inner();
+	y.innerMethod();
+}
+}
+class MethodLocalVariableDemo {
+public static void main(String[] args) {
+	Outer x=new Outer();
+	x.outerMethod();
+}
+}
+Output
+inside outerMethod
+x= 98
+
+Note: Local inner class cannot access non-final local variable till JDK 1.7. Since JDK 1.8, it is possible to access the non-final local variable in method local inner class. 
+
+3.Static Nested Classes
+Static nested classes are not technically inner classes. They are like a static member of outer class. 
+
+// Java Program to Illustrate Static Nested Classes
+
+// Importing required classes
+import java.util.*;
+
+// Class 1
+// Outer class
+class Outer {
+
+	// Method
+	private static void outerMethod()
+	{
+
+		// Print statement
+		System.out.println("inside outerMethod");
+	}
+
+	// Class 2
+	// Static inner class
+	static class Inner {
+
+		public static void display()
+		{
+
+			// Print statement
+			System.out.println("inside inner class Method");
+
+			// Calling method inside main() method
+			outerMethod();
+		}
+	}
+}
+
+// Class 3
+// Main class
+class GFG {
+
+	// Main driver method
+	public static void main(String args[])
+	{
+
+		// Calling method static display method rather than an instance of that class.
+		Outer.Inner.display();
+	}
+}
+
+Output
+inside inner class Method
+inside outerMethod
+
+4. Anonymous Inner Classes 
+
+Anonymous inner classes are declared without any name at all. They are created in two ways. 
+
+As a subclass of the specified type
+As an implementer of the specified interface
+// Java Program to Illustrate Anonymous Inner classes 
+// Declaration Without any Name 
+// As a subclass of the specified type
+
+// Importing required classes
+import java.util.*;
+
+// Class 1
+// Helper class
+class Demo {
+
+	// Method of helper class
+	void show()
+	{
+		// Print statement
+		System.out.println(
+			"i am in show method of super class");
+	}
+}
+
+// Class 2
+// Main class
+class Flavor1Demo {
+
+	// An anonymous class with Demo as base class
+	static Demo d = new Demo() {
+		// Method 1
+		// show() method
+		void show()
+		{
+			// Calling method show() via super keyword
+			// which refers to parent class
+			super.show();
+
+			// Print statement
+			System.out.println("i am in Flavor1Demo class");
+		}
+	};
+
+	// Method 2
+	// Main driver method
+	public static void main(String[] args)
+	{
+		// Calling show() method inside main() method
+		d.show();
+	}
+}
+Output
+i am in show method of super class
+i am in Flavor1Demo class
+
+// Java Program to Illustrate Anonymous Inner Classes
+// Declaration Without Any Name
+// As an implementer of Specified interface
+
+// Interface
+interface Hello {
+
+	// Method defined inside interface
+	void show();
+}
+
+// Main class
+class GFG {
+
+	// Class implementing interface
+	static Hello h = new Hello() {
+	
+		// Method 1
+		// show() method inside main class
+		public void show()
+		{
+			// Print statement
+			System.out.println("i am in anonymous class");
+		}
+	};
+
+	// Method 2
+	// Main driver method
+	public static void main(String[] args)
+	{
+		// Calling show() method inside main() method
+		h.show();
+	}
+}
+Output
+i am in anonymous class
+
+SUMMARY:-
+In Java, an inner class is a class that is defined inside another class. An inner class can access the members of the outer class, including private members, and it can be used to implement callbacks and event handlers. There are four types of inner classes in Java:
+
+Member Inner Class: It is a non-static class that is defined at the member level of a class. It has access to all the members of the outer class, including private members.
+
+Method Local Inner Class: It is a class that is defined inside a method or a block of code. It has access to the final variables of the method or block in which it is defined.
+
+Anonymous Inner Class: It is a class that is defined inline and has no name. It is used to implement interfaces or extend classes without creating a separate class.
+
+Static Nested Class: It is a static class that is defined inside another class. It does not have access to the non-static members of the outer class.
+
+Inner classes have several advantages:
+
+Encapsulation
+Access Control
+Callbacks and Event Handlers
+Code Organization
+--------------------------------------------------------
+MULTITHREADING :
+
+Multithreading is a Java feature that allows concurrent execution of two or more parts of a program for maximum utilization of CPU. Each part of such program is called a thread. So, threads are light-weight processes within a process.
+
+Threads can be created by using two mechanisms : 
+
+1.Extending the Thread class 
+2.Implementing the Runnable Interface
+
+1.Extending the Thread class 
+Thread creation by implementing the Runnable Interface
+We create a new class which implements java.lang.Runnable interface and override run() method. Then we instantiate a Thread object and call start() method on this object. 
+ 
+// Java code for thread creation by extending
+// the Thread class
+class MultithreadingDemo extends Thread {
+	public void run()
+	{
+		try {
+			// Displaying the thread that is running
+			System.out.println(
+				"Thread " + Thread.currentThread().getId()
+				+ " is running");
+		}
+		catch (Exception e) {
+			// Throwing an exception
+			System.out.println("Exception is caught");
+		}
+	}
+}
+
+// Main Class
+public class Multithread {
+	public static void main(String[] args)
+	{
+		int n = 8; // Number of threads
+		for (int i = 0; i < n; i++) {
+			MultithreadingDemo object
+				= new MultithreadingDemo();
+			object.start();
+		}
+	}
+}
+
+2.Implementing the Runnable Interface
+
+// Java code for thread creation by implementing
+// the Runnable Interface
+class MultithreadingDemo implements Runnable {
+	public void run()
+	{
+		try {
+			// Displaying the thread that is running
+			System.out.println(
+				"Thread " + Thread.currentThread().getId()
+				+ " is running");
+		}
+		catch (Exception e) {
+			// Throwing an exception
+			System.out.println("Exception is caught");
+		}
+	}
+}
+
+// Main Class
+class Multithread {
+	public static void main(String[] args)
+	{
+		int n = 8; // Number of threads
+		for (int i = 0; i < n; i++) {
+			Thread object
+				= new Thread(new MultithreadingDemo());
+			object.start();
+		}
+	}
+}
+
+Life Cycle of a Thread :
+There are multiple states of the thread in a lifecycle as mentioned below:
+
+a.New Thread: When a new thread is created, it is in the new state. The thread has not yet started to run when the thread is in this state.
+
+b.Runnable State: A thread that is ready to run is moved to a runnable state. In this state, a thread might actually be running or it might be ready to run at any instant of time. It is the responsibility of the thread scheduler to give the thread, time to run. 
+
+c.Blocked: The thread will be in blocked state when it is trying to acquire a lock but currently the lock is acquired by the other thread. The thread will move from the blocked state to runnable state when it acquires the lock.
+
+d.Waiting state: The thread will be in waiting state when it calls wait() method or join() method. It will move to the runnable state when other thread will notify or that thread will be terminated.
+
+e.Timed Waiting: A thread lies in a timed waiting state when it calls a method with a time-out parameter. A thread lies in this state until the timeout is completed or until a notification is received.
+
+d.Terminated State: A thread terminates because of either of the following reasons: 
+Because it exits normally. This happens when the code of the thread has been entirely executed by the program.
+Because there occurred some unusual erroneous event, like a segmentation fault or an unhandled exception.
+
+Priorities in threads is a concept where each thread is having a priority which in layman’s language one can say every object is having priority here which is represented by numbers ranging from 1 to 10. 
+
+The default priority is set to 5 as excepted.
+Minimum priority is set to 1.
+Maximum priority is set to 10.
+Here 3 constants are defined in it namely as follows:
+
+public static int NORM_PRIORITY
+public static int MIN_PRIORITY
+public static int MAX_PRIORITY
+
+public final int getPriority(): java.lang.Thread.getPriority() method returns priority of given thread.
+public final void setPriority(int newPriority): java.lang.Thread.setPriority() method changes the priority of thread to the value newPriority. This method throws IllegalArgumentException if value of parameter newPriority goes beyond minimum(1) and maximum(10) limit.
+
+Main thread in Java:
+
+When a Java program starts up, one thread begins running immediately. This is usually called the main thread of our program because it is the one that is executed when our program begins. 
+
+There are certain properties associated with the main thread :-
+
+1.It is the thread from which other “child” threads will be spawned.
+2.Often, it must be the last thread to finish execution because it performs various shutdown actions
+
+The main thread is created automatically when our program is started. To control it we must obtain a reference to it. This can be done by calling the method currentThread( ) which is present in Thread class. This method returns a reference to the thread on which it is called.
+
+The statement “Thread.currentThread().join()”, will tell Main thread to wait for this thread(i.e. wait for itself) to die. Thus Main thread wait for itself to die, which is nothing but a deadlock.
+
+What does start() function do in multithreading in Java?
+When a function is called the following operations take place: 
+The arguments are evaluated.
+A new stack frame is pushed into the call stack.
+Parameters are initialized.
+Method body is executed.
+Value is returned and current stack frame is popped from the call stack.
+The purpose of start() is to create a separate call stack for the thread. A separate call stack is created by it, and then run() is called by JVM.
+
+Difference between Thread.start() and Thread.run() in Java
+-New Thread creation: When a program calls the start() method, a new thread is created and then the run() method is executed. But if we directly call the run() method then no new thread will be created and run() method will be executed as a normal method call on the current calling thread itself and no multi-threading will take place. 
+-As we can see in the above example, when we called the run() method of our MyThread class, no new thread is created and the run() method is executed on the current thread i.e. main thread. Hence, no multi-threading took place. The run() method is called as a normal function call.
+-In Java’s multi-threading concept, another most important difference between start() and run() method is that we can’t call the start() method twice otherwise it will throw an IllegalStateException whereas run() method can be called multiple times as it is just a normal method calling.
+
+start()	run()
+Creates a new thread and the run() method is executed on the newly created thread.	
+No new thread is created and the run() method is executed on the calling thread itself.
+Can’t be invoked more than one time otherwise throws java.lang.IllegalStateException	
+Multiple invocation is possible
+Defined in java.lang.Thread class.	
+Defined in java.lang.Runnable interface and must be overridden in the implementing class.
+
+Thread.sleep() Method in Java
+
+-Method Whenever Thread.sleep() functions to execute, it always pauses the current thread execution.
+-If any other thread interrupts when the thread is sleeping, then InterruptedException will be thrown.
+-If the system is busy, then the actual time the thread will sleep will be more as compared to that passed while calling the sleep method and if the system has less load, then the actual sleep time of the thread will be close to that passed while calling sleep() method.
+
+1. public static void sleep(long millis)throws InterruptedException
+2. public static void sleep(long millis)throws IllegalArguementException
+3. public static void sleep(long millis, int nanos)throws InterruptedException
+4. public static void sleep(long millis, int nanos)throws  IllegalArguementException
+
+IllegalArguementException When Sleep Time Is Negative
+
+
+-------------------------------------------------
+=>vita multi-threading:
+
+
+Application of multi-threading in java :- due to multithreading feature, java has become effective on server side. e.g  Servlet , JSP etc.
+
+Thread-Schedular
+a) pre-emptive
+b) time-slice.
+
+JVM can have any schedular , i.e. either pre-emptive or time-slice.
+It is because JVM is different for different platforms.
+
+Java has given certain mechanisms ( functions ) whereby u can make sure , ur multi-threading application can run more or less same on any os.
+
+
+Following are the imp. steps required for multithreading application.
+1) create thread/s
+2) define thread execution body
+3) register thread with the thread schedular
+4) thread schedular will execute the thread/s
+
+
+
+
+Java's multi-threading support lies in
+
+a) java.lang.Thread
+b) java.lang.Runnable (interface)
+c) java.lang.Object
+
+
+Thread class:- this is the most imp. class required in order to create multi-threading application.
+Following are its methods.
+
+a) start
+	is used to register thread with jvm schedular
+
+b) run
+	is used by the programmer to define thread execution body, but will be called by jvm schedular whenever it executes a particular thread.
+when the run method is over, thread is dead.
+
+c) sleep   (static)
+	is used to make thread sleep for some time
+
+d) setName
+	to set the name of thread
+
+e) getName
+	to get the name of thread
+
+f) currentThread
+	returns the currently running thread
+
+g) setPriority
+	to set the priority
+in java priorities are numbers from 1 to 10
+1 - minimum priority
+5 - normal priority
+10 - maximum priority
+
+by default every thread created has normal priority.
+
+( imp:- priorities are not guaranteed across different platforms. )
+		
+h) getPriority
+	to get the priority
+i) join
+	join() method is used for waiting the thread in execution until the thread on which join is called is not completed.
+
+Runnable interface :- interface which contains abstract method
+
+ void run();
+
+
+There are two ways to create multi-threading application.
+
+1) extends Thread
+2) implements Runnable
+
+
+e.g.
+extends Thread
+
+public class Th1 extends Thread
+{
+	public void run()  //define thread body
+	{
+		for(int i=0;i<5;i++)
+		{
+			System.out.println("Hello"+i);
+		}
+	}
+	public static void main(String args[])
+	{
+		Th1 t1=new Th1();  //thread creation
+		t1.start();  //register thread to scheduler
+	}
+}
+
+by def. every java application has main thread created by jvm. This thread is used to execute main() function.
+In the above code, there are 2 threads
+main thread
+user defined thread  i.e.  t1
+Hence there are 2 call stacks in the above code. one for main() and other for t1 ( run() method ).
+
+when main function is over, main thread dies, but user defined thread/s can continue. They will be taken care by JVM.
+i.e. in the above code, after "t1.start()" when main() function is over, main thread dies , but t1's execution will be managed by JVM.
+
+
+public class Th2 extends Thread
+{
+	public void run()
+	{
+		System.out.println(Thread.currentThrea d());
+		for(int i=0;i<5;i++)
+		{
+			System.out.println("Hello"+i);
+		}
+	}
+	public static void main(String args[])
+	{
+		System.out.println(Thread.currentThread());
+		Th2 t1=new Th2();
+		t1.setName("first");
+		t1.start();
+	}
+}
+o/p--Thread[main,5,main]
+Thread[first,5,main]
+Hello0
+Hello1
+Hello2
+Hello3
+Hello4
+
+can we call run() directly ?
+
+public class Th3 extends Thread
+{
+	public void run()
+	{
+		for(int i=0;i<5;i++)
+		{
+			System.out.println("Hello"+i);
+		}
+	}
+	public static void main(String args[])
+	{
+		Th3 t1=new Th3();
+		t1.setName("first");
+		t1.run();
+	}
+}
+
+we can call run() directly. But in that case it won't be thread execution , it is a normal method call. That is different call stacks won't 
+be created.
+
+more than one user defined-threads
+
+
+public class Th4 extends Thread
+{
+	public void run()
+	{
+		System.out.println(Thread.currentThread());
+		for(int i=0;i<5;i++)
+		{	
+			System.out.println("Hello"+i);
+		}
+	}
+	public static void main(String args[])
+	{
+System.out.println(Thread.currentThread());
+		Th4 t1=new Th4();
+		Th4 t2=new Th4();
+		t1.setName("first");
+		t2.setName("second");
+		t1.start();
+		t2.start();
+	}
+}
+
+
+
+public class Th4_a extends Thread
+{
+	public void run()
+	{
+		for(int i=0;i<5;i++)
+		{	
+			System.out.println("Hello  "+Thread.currentThread().getName()+"\t"+i);
+			try
+			{
+				Thread.sleep(100);
+			}
+			catch(InterruptedException ie)
+			{
+				ie.printStackTrace();
+			}
+		}
+	}
+	public static void main(String args[])
+	{
+		Th4 t1=new Th4();
+		Th4 t2=new Th4();
+		t1.setName("first");
+		t2.setName("second");
+		t1.start();
+		t2.start();
+	}
+}
+
+
+public class Th5 implements Runnable
+{
+	public void run()
+	{
+		for(int i=0;i<5;i++)
+		{	
+			System.out.println("Hello"+i);
+		}
+	}
+	public static void main(String args[])
+	{
+		Th5 ob=new Th5();
+		Thread t1=new Thread(ob);
+		Thread t2=new Thread(ob);
+		t1.start();
+		t2.start();
+
+	}
+}
+a) define a class which implements Runnable
+b) define run()
+c) instantiate the class which impl. Runnable
+d) instantiate Thread class by passing above instance (child of Runnable)
+e) register Thread class instance/s
+
+
+Revise "extends Thread" and "implements Runnable"
+
+how Thread class is related to Runnable interface?
+
+ans- Thread class implements Runnable
+
+Difference between  extends Thread and implements Runnable
+	
+what is the use of implements Runnable ?
+	if your class is already extending some class, you can't say extends Thread , because multiple inheritance is not allowed in java.
+	 In that case you have to go for implements Runnable.
+
+
+above program also proves that threads can share the memory.
+
+when threads share the memory there is a risk of "race condition".
+
+e.g.
+
+	There are 2 threads.
+	one thread is reading from a file
+	other thread is writing to a file.
+Race condition means
+	while one thread is reading from a file, other thread might write in a file or vice-versa.
+Race condition always leads to Data Corruption.
+
+How do we avoid Race condition ?
+	we will have to make sure that while one thread is working on a data, other thread should not run. 
+	Only after first thread completes its job, other thread should start its execution.
+	 In java we can achieve this by using  "synchronization".
+
+	"synchronization" is a solution to the race condition.
+
+
+public class Th6 implements Runnable
+{
+	synchronized public void run()
+	{
+		for(int i=0;i<5;i++)
+		{	
+			System.out.println("Hello"+i);
+		}
+	}
+	public static void main(String args[])
+	{
+		Th6 ob=new Th6();
+		Thread t1=new Thread(ob);
+		Thread t2=new Thread(ob);
+		t1.start();
+		t2.start();
+	}
+}
+
+
+
+
+public class Th7 implements Runnable
+{
+	public void run()
+	{
+		synchronized(this)
+		{
+			for(int i=0;i<5;i++)
+			{	
+				System.out.println("Hello"+i);
+			}
+		}
+	}
+	public static void main(String args[])
+	{
+		Th7 ob=new Th7();
+		Thread t1=new Thread(ob);
+		Thread t2=new Thread(ob);
+		t1.start();
+		t2.start();
+	}
+}
+
+
+synchronized keyword
+	method :- all the statements are protected.
+
+	block :- only those statements are protected which are given inside synchronized block.
+
+
+
+what exactly happens when we use synchronized keyword ?
+
+There is a concept of object lock.
+
+in java every object has a lock. This lock can be accessed by only one thread at a time. The lock will be released as soon as 
+the thread completes its job and thus another thread can acquire the lock.
+	This lock comes into picture only when object has got non-static synchronized method/s or block.
+whichever thread executes the synchronized method first, it acquires the lock.  Other thread/s have to be in "seeking lock state".
+
+Acquiring and Releasing lock happens automatically.
+
+
+once a thread acquires a lock on an object , it can have control on all the non-static synchronized methods of that object.
+
+
+
+
+public class Th8 implements Runnable
+ 
+	public void run()
+	{
+		synchronized(this) // reference of the object on which threads would like to acquire lock the lock
+		{
+			for(int i=0;i<5;i++)
+			{	
+				System.out.println("Hello"+i);
+			}
+		}
+	}
+	public static void main(String args[])
+	{
+		Th8 ob=new Th8();
+		Th8 ob1=new Th8();
+		Thread t1=new Thread(ob);
+		Thread t2=new Thread(ob1);
+		t1.start();
+		t2.start();
+	}
+}
+
+
+Even though synchronized method or block is used to avoid "Race Condition", there can be danger of "DeadLock" inside it. 
+e.g. if one thread is working inside synchronized block or method and if it gets stuck up !  imagine what will happen ?
+neither this thread can complete and release the lock, nor other thread can acquire the lock.
+
+Solution to this is to have a Communication bet'n threads.
+i.e. if the thread realizes it can not continue, it should come out of synchronized method or block and release the lock. Now other thread
+ will acquire the lock , execute the code and allow the first thread to resume.
+
+Following are the methods used for communication bet'n threads.
+
+a) wait
+	it will make thread , release the lock and go to wait pool.
+
+b) notify
+	it will make the thread to move from wait pool to seeking lock state.
+
+c) notifyAll
+	it will make all the threads to move from wait pool to seeking lock state.
+
+These methods are defined in "java.lang.Object" class and are final so u can not override them.
+
+These methods must be called from synchronized method or block.
+
+difference bet'n wait and sleep
+	
+		wait releases the lock on an object , sleep does not.
+
+
+
+
+Thread-safety
+
+
+Thread-safe classes are those classes, which contain synchronized non-static methods.
+
+
+what is class lock ?
+
+every class has a lock. It is actually a lock on an instance of class Class. This is because , whenever any class is loaded in java, it is 
+represented by instance of class Class.
+The class lock comes into picture in case of synchronized static methods.
+Thread which gives a call to synchronized static method can acquire a class lock. Only after thread complete that static method, 
+lock is released.
+
+
+public class Th9 implements Runnable
+{
+	public void run()
+	{
+		synchronized(this)
+		{
+			for(int i=0;i<5;i++)
+			{	
+				System.out.println("Hello"+i);
+			}
+		}
+	}
+	public static void main(String args[])
+	{
+		Th9 ob=new Th9();
+		Thread t1=new Thread(ob);
+		Thread t2=new Thread(ob);
+		t1.start();
+		t2.start();
+		
+		System.out.println("Both the threads are over");
+	}
+}
+
+
+in the above code "Both the threads are over" will not be displayed in the end because it is a statement of main. It is because as we know ,
+main thread completes first and user defined thread are continue, they are taken care by JVM.
+if we want that "Both the threads are over" should be displayed at the end, we have to make sure that main thread will complete only after
+the completion of "t1" and "t2".
+
+Solution is "join()" method.
+
+join() method
+
+join() method is used for waiting the thread in execution until the thread on which join is called is not completed.
+
+join method makes caller thread (main thread) to wait for called thread (t1 and t2) to complete.
+
+how join works ?
+
+
+public class Th9_a implements Runnable
+{
+	public void run()
+	{
+		synchronized(this)
+		{
+			for(int i=0;i<5;i++)
+			{	
+				System.out.println("Hello"+i);
+			}
+		}
+	}
+	public static void main(String args[])
+	{
+		Th9 ob=new Th9();
+		Th9 ob1=new Th9();
+		Thread t1=new Thread(ob);
+		Thread t2=new Thread(ob1);
+		t1.start();
+		t2.start();
+		try
+		{
+			t1.join();
+			t2.join();
+		}
+		catch(InterruptedException e)
+		{
+		}
+		System.out.println("Both the threads are over");
+	}
+}
+
+in the above code, when main() function calls "t1.join()" for example, it says "join me at your end".
+Since main() is calling "t1.join()" and "t2.join()" , it is added to the end of both t1 and t2. That's why now the statement 
+"Both the threads are over" is getting executed at the end.
+
+
+
+whenever thread is in a blocked state ie.due to  sleep, join or wait  methods, it can get interrupted by other threads. Whenever blocked 
+thread gets interrupted, it throws "InterruptedException".
+ But this can not be predictable, hence we have to be ready with "try... catch(InterruptedException)"
+
+Thread states
+
+	born
+	runnable
+	running
+	blocked
+	dead
+
+
+User threads and Daemon threads
+
+User threads
+	user defined threads
+	main thread
+
+Daemon thread
+	e.g.  garbage collection thread (low priority thread)
+
+Daemon threads are the threads which are at the mercy of user thread/s. Their only purpose is to serve user defined thread/s.
+When there is no user thread alive, Daemon thread will die.
+
+
+Example of Garbage Collection Thread
+
+
+package core1;
+
+public class Sample 
+{
+
+	public static void main(String[] args) 
+	{
+		Sample s1=new Sample();
+		s1=null;
+		//System.gc();
+		
+		//Runtime.getRuntime().gc();
+		System.out.println("Done");
+
+	}
+
+	protected void finalize() throws Throwable 
+	{
+		System.out.println("inside finalized method");
+		System.out.println(Thread.currentThread());
+		
+	}
+
+}
+
+
+output:
+
+Done
+inside finalized method
+Thread[Finalizer,8,system]
+
+
+Difference between
+
+	System.gc()  and Runtime.getRuntime.gc()
+
+inside "System" class we have following code:
+
+
+public static void gc() 
+{
+        Runtime.getRuntime().gc();
+}
+
+
+A thread pool contains previously created threads to execute a given task. These threads are initially idle. Once any task comes a randomly selected thread from thread pool will be made active and asked to perform the task. Once the task is over the thread is not destroyed but simply sent back to the pool for reuse.
+
+Executor-
+A framework having a bunch of components that are used for managing worker threads efficiently is referred to as Executor Framework. The Executor API reduces the execution of the task from the actual task to be executed through the Executors. The executor framework is an implementation of the Producer-Consumer pattern.
+ExecutorService executor = Executors.newSingleThreadExecutor() => The SingleThreadExecutor is a special type of executor that has only a single thread.
+ExecutorService exec=Executors.newCachedThreadPool() ;=> The CachedThreadPool is a special type of thread pool that is used to execute short-lived parallel tasks.
+ExecutorService exec=Executors.newFixedThreadPool(2);=> FixedThreadPool is another special type of executor that is a thread pool having a fixed number of threads. 
+ScheduledExecutorService scheduledExecService = Executors.newScheduledThreadPool(1);  =>The ScheduledExecutor is another special type of executor which we use to run a certain task at regular intervals. 
+ 
+What is ReentrantLock in Java?
+ReentrantLock is used to provide lock to longest waiting thread. Lock is acquired by lock() method and held by Thread until a call to unlock() method.
+
+main difference between synchronized and ReentrantLock is ability to trying for lock with or without timeout. Thread doesn’t need to block infinitely, which was the case with synchronized. 
+
+1) acquiring and releasing lock needs to be done explicitly.
+2) extended feature like fairness, which can be used to provide lock to longest waiting thread.
+3) ability to trying for lock with or without timeout. Thread doesn’t need to block infinitely, which was the case with implicit synchronization.
+
+is tryLock() method. ReentrantLock provides convenient tryLock() method, which acquires lock only if its available or not held by any other thread. This reduce blocking of thread waiting for lock in Java application. 
+
+Things to remember:
+	Release all locks in finally block.  
+	Beware of thread starvation! The fair setting in ReentrantLocks may be useful if you have many readers and occasional writers that you don’t want waiting forever. It’s possible a 	writer could wait a very long time (maybe forever) if there are constantly read locks held by other threads. 
+	Use synchronized whereever possible. You will avoid bugs and keep your code cleaner. 
+	Use tryLock() if you don’t want a thread waiting indefinitely to acquire a lock. 
+
+
+The getHoldCount() method of ReentrantLock class is used to get the number of holds on this lock by the current thread.
+The getOwner() method of ReentrantLock class returns the current owner thread of the lock. 
+The getQueuedThreads() returns a collection containing threads that may be waiting to acquire this lock.
+The hasQueuedThread(Thread thread) method of ReentrantLock class returns true if there is some thread is waiting for the this lock
+The hasQueuedThreads() returns a boolean value true or false depending upon whether any threads are waiting to acquire this lock. 
+The isFair() method of ReentrantLock class returns true if the fairness to acquire this lock is true.
+The isHeldByCurrentThread() method of ReentrantLock Class checks if the current thread occupies this lock.
+The isLocked() method of ReentrantLock class checks if any thread occupies this lock. 
+The lock() method of ReentrantLock class hold the lock if it is not held by another thread and returns immediately, and set the lock hold count to one.
+The getQueueLength() method of ReentrantLock Class returns the number of threads waiting to get the lock. The value is approximate because the number of threads can change dynamically while traversing internal data structures. It is used to monitor the state. 
+The lockInterruptibly() method of ReentrantLock class hold the lock until or unless the current thread is interrupted.
+The toString() method of ReentrantLock Class returns a string identifying this lock and its lock state.
+--------------------------------------------------
+how to create immutable class?
+1) Don't provide "setter" methods — methods that modify fields 
+
+2) If the instance fields include references to mutable objects, don't allow those objects to be changed: 
+i.e. Don't provide methods that modify the mutable objects.
+
+3) If the instance fields include references to mutable objects, don't allow those objects to be changed:
+ Don't share references to the mutable objects.
+
+4) if necessary, create copies to avoid returning the originals in your methods
+
+5) a class should be final
+
+
+-------------------------------------------------------------------
+Serialization
+
+What is object persistant?
+			object persistence
+
+it means saving the state of an object inside either filesystem or database so that it can be retrieved back in future.
+
+When we save the state of an object inside filesystem , it is known as "Serialization".
+
+in java there are two rules for Serialization:
+
+	a) a class has to implement either Serializable or Externalizable interface.
+
+	b) class must have all the instance members of type serialized. (Serialized type means which can be easily converted into sequence of bytes) .
+By default all the primitives are of serialized type.
+Reference type can be made serialized type by implementing either Serializable or Externalizable interface.
+
+Serializing object means writing Object inside filesystem as follows:
+		FileOutputStream fos=new FileOutputStream("filename");
+		ObjectOutputStream oos=new ObjectOutputStream(fos);
+			oos.writeObject(<object to be written>);
+
+Deserializing object means reading object from filesystem as follows:
+		FileInputStream fis=new FileInputStream("filename");
+		ObjectInputStream ois=new ObjectInputStream(fis);
+			ois.readObject();
+
+
+
+
+
+
+
+
+				byte streams
+
+InputStream				OutputStream     [ abstract classes ]
+  [ read ]				   [ write ]
+
+
+FileInputStream			        FileOutputStream
+
+
+
+
+
+
+				unicode character streams
+
+Reader						Writer		[ abstract classes ]
+[ read ]					  [ write ]
+
+
+FileReader					FileWriter
+
+
+
+				File class in java
+
+	File class in java allows you to check properties of a given file such as size,last modified date,name, read/write permission, whether file is existing or not.
+	Additionally File class also allows you to display information about a particular folder.
+
+
+What are the things get written when u serialize an object using Serializable?
+
+a)	it writes out the metadata (description) of the class associated with an instance such as length of the class, the name of the class, serialVersionUID (or serial version), the number of fields in this class.
+b)	Then it recursively writes out the metadata of the superclass until it finds java.lang.object. 
+
+c)	Once it finishes writing the metadata information, it then starts with the actual data associated with the instance. But this time, it starts from the top most superclass. 
+
+d)	Finally it writes the data of objects associated with the instance starting from metadata to actual content recursively.
+
+inshort:
+metadata
+actual data
+object data both meta and actual data 
+
+
+
+what happen in deserialization?
+1)	The object is read from the stream.
+2)	The JVM determines (through info stored with the serialized object ) the object’s class type.
+3)	The JVM attempts to find and load the object’s class. If the JVM can’t find and / or load the class, the JVM throws an exception and deserialization fails.
+4)	A new object is given space on the heap, but the serialized object’s constructor does not run ! obviously , if the constructor ran, it would restore the state of the object back to its original ‘new’ state and that’s not what we want. We want the object to be restored to the state it had when it was serialized, not when it was first created.
+5)	If the object has a non-serializable class somewhere up its inheritance tree, the constructor for that non-serializable class will run along with any constructors above that. Once the constructor chaining begins, you can’t stop it , which means all superclasses, beginning with the first non-serializable one, will reinitialize their state.
+6)	The object’s instance variables are given the values from the serialized state. Transient variables are given a value of null for object references and defaults (0, false, etc. ) for primitives.
+
+
+inshort :
+1. object created
+2. memory allocate to instance member
+3. no constructor called
+4. transient member allocate default value.
+
+from copy:
+1.transient keyword not considered in serialization
+2.constructor not get called in deserialization otherwise we not get updated value we get previous value and which is incorrect.
+3.serialozable interface is marker interface means not a single contract means empty
+4.both clone and serializable interface do not invoke constructor.
+
+
+5 ways to create OBJECT:
+1.new keywrod
+
+2.newinstance() method of class class
+Employee emp2 = (Employee) Class.forName("org.programming.mitra.exercises.Employee").newInstance();
+
+3.newinstance() method of constructor class
+Constructor<Employee> constructor = Employee.class.getConstructor();
+Employee emp3 = constructor.newInstance();
+
+4.deserialization
+ObjectInputStream in = new ObjectInputStream(new FileInputStream("data.obj"));
+Employee emp5 = (Employee) in.readObject();
+
+5.clone
+Employee emp4 = (Employee) emp3.clone();
+
+how writeObject and readObject works?
+
+oos.writeObject(s)
+	
+	when u call "writeObject" , it will check whether "s" implements "Serializable" or "Externalizable"
+
+	if it implements "Serializable"
+		it will check whether
+			u have defined "private writeObject"
+				if yes
+					it will invoke it
+
+				if no
+					it will go for def. serialization
+	if it implements "Externalizable"
+		it will invoke "writeExternal()"
+
+
+
+ois.readObject()
+	
+	when u call "readObject",it will check whether class has implement "Serializable" or "Externalizable"
+
+	if it implements "Serializable"
+		it will check whether
+			u have defined "private readObject"
+				if yes
+					it will invoke it
+
+				if no
+					it will go for def. deserialization
+
+
+
+	if it implements "Externalizable"
+		invoke default constructor
+		invoke "readExternal()" method
+
+
+How to customize the default protocol?
+Let’s say, you need to perform some specific operations in the constructor when you are instantiating the class but you can’t perform those operations when you deserialize the object because constructor won’t be called when an object is de-serialized. Here we are restoring an object but not reconstructing an object. Then how will you call or perform those operations when you deserialize the object? Well, you have a way here and it’s simple too. You can enhance the normal process by providing two methods inside your serializable class. Those methods are:
+
+private void writeObject(ObjectOutputStream out) throws IOException; 
+
+private void readObject(ObjectInputStream in) throws IOException, ClassNotFoundException; 
+
+Notice that both methods are declared private and of course they must be declared private, proving that neither method is inherited and overridden or overloaded. The trick here is that the virtual machine will automatically check to see if either method is declared during the corresponding method call. The virtual machine can call private methods of your class whenever it wants but no other objects can. Thus, the integrity of the class is maintained and the serialization protocol can continue to work as normal. 
+
+-----------------------------------------------------
+Externalizable:
+
+example:
+package jtp.externalization.test;  
+  
+import java.io.*;  
+  
+public class User implements Externalizable {  
+    private String name;  
+    private int age;  
+    public User(){}  
+    public User(String userName,int age){  
+        this.name= userName;  
+        this.age=age;  
+    }  
+    @Override  
+    public void readExternal(ObjectInput in) throws IOException,ClassNotFoundException {  
+        name=(String) in.readObject();  
+        age=in.readInt();  
+    }  
+    @Override  
+    public void writeExternal(ObjectOutput out) throws IOException {  
+        out.writeObject(name);  
+        out.writeInt(age);  
+    }  
+      
+    public String getUserName() {  
+        return name;  
+    }  
+    public void setUserName(String userName) {  
+        this.name = userName;  
+    }  
+    public int getAge() {  
+        return age;  
+    }  
+    public void setAge(int age) {  
+        this.age = age;  
+    }  
+}  
+JTPMain.java:
+
+package jtp.externalization.test;  
+import java.io.*;  
+public class JTPMain {  
+       public static void main(String... args) throws Exception, IOException{  
+           File f= new File("Test.txt");  
+           User u= new User("JavaTpoint",25);  
+           ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(f));    
+           out.writeObject(u);    
+           ObjectInputStream in = new ObjectInputStream(new FileInputStream(f));  
+           u=(User)in.readObject();  
+           System.out.println("After De externalization username: " +u.getUserName()+" and age is:"+u.getAge());     
+       }  
+    }  
+Output:
+
+After De externalization username: JavaTpoint and age is:25
+
+In case of Externalizable when we deserialized object:
+1) A new object gets created in heap area.
+2) Instance members are allocated memory.
+3) Default constructor gets invoked.
+4) readExternal() method gets invoked which initializes instance members with the help of file info.
+
+If we don’t have default constructor deserialization fails in case of Externalizable.
+
+
+
+why in case of Serializable "default constructor" does not get called during deserialization?
+
+ans -  Because if here default constructor gets called then we will get default values and not those values which were there when we stored that object inside filesystem.
+
+
+But then why default constructor gets called in case of Externalizable ?
+
+ans- It is true that default constructor gives us default initial values, But Externalizable gives us one more chance to reinitialize our members with the help of file info ie. using "readExternal()" method.
+
+						   
+
+in case of Serializable when u deserialize an object
+
+	a) new object gets created
+	b) instance members are allocated memory
+	c) constructor does not get called
+	d) non-static and non-transient members are initialized with the help of file info
+
+
+in case of Externalizable when u deserialize an object
+
+	a) new object gets created
+	b) instance members are allocated memory
+	c) default constructor gets called
+	c) readExternal() method will get called which initializes non-static and non-transient members with the help of file info
+----------------------------------------
+SerialVersion:
+
+During serialization, runtime associates with each serializable class a version number, called a serialVersionUID, which is used during de-serialization
+to verify that the sender and receiver of a serialized object have loaded classes for that object that are compatible with respect to serialization.
+  If no matching class is found, an InvalidClassException is thrown.
+
+what exactly happens when you serialize an object?
+
+	serialization mechanism generates serialversionuid (if you have not defined it explicitly) for the class , whose object you are trying to serialize.
+	 This serialversionuid is then stored inside the file.
+
+
+what exactly happens when you deserialize an object?
+
+	during deserialization the class whose object you want to deserialize , needs to be loaded.
+	Here, deserialization mechanism generates serialversionuid (if you have not defined it explicitly) for the class , whose object you are trying to deserialize.
+       This serialversionuid is then checked with the serialversionuid stored inside file. if they match then deserialization becomes successful else you get an exception 
+       "InvalidClassException" and deserialization fails.
+
+
+Since the default serialVersionUID computation differs on different JVM implementations, it is highly recommeded for a class which implements Serializable or 
+Externalizable interfaces to declare serialversionuid explicitly in order to ensure successful deserialization across all the platforms.  
+
+Developer code
+			class Student implements Serializable or Externalizable
+			{
+			}
+
+			writeObject(s);           // serialization
+				a) class Student will be given a unique id called as SerialVersionUID
+				b) This id will be then stored inside the file.
+
+
+
+
+Client code
+
+			readObject();            // deserialization
+
+			1) class Student gets loaded
+			2) class Student will be given a unique id called as SerialVersionUID
+			3) This generated id will be checked with the id which is there inside the file.
+			4) if they match then deserialization happens successfully otherwise we get "InvalidClassException"
+		[ This is to verify that the sender and receiver of a serialized object have loaded classes for that object that are compatible with respect to
+		 serialization.]
+
+----------------------------------------------
+Compatible and Incompatible changes in Serialization:
+
+If a newer version of a serialized object has to be compatible with an older version, it is important that the newer version abides by the rules for compatible and incompatible changes.
+Imp. Note:- This is just an observation. Ideally , after serializing object and distributing a file to client or other person, if you make any changes in your class ,you need to serialize again and redistribute the file.
+A compatible change is one that can be made to a new version of the class, which still keeps the stream compatible with older versions of the class. Examples of compatible changes are:
+•	Addition of new fields or classes does not affect serialization, as any new data in the stream is simply ignored by older versions. When the instance of an older version of the class is deserialized, the newly added field will be set to its default value.  [ tried , it’s working]
+•	You can change field access modifiers like private, public, protected or package as they are not reflected to the serial stream. [ tried, it’s working ]
+•	Addition of new methods [tried, it’s working]
+•	You can change a transient or static field to a non-transient or non-static field, as it is similar to adding a field.
+•	You can change the access modifiers for constructors and methods of the class. For instance a previously private method can now be made public, an instance method can be changed to static, etc. The only exception is that you cannot change the default signatures for readObject() and writeObject() if you are implementing custom serialization. The serialization process looks at only instance data, and not the methods of a class.
+
+Changes which would render the stream incompatible are:
+•	Once a class implements the Serializable interface, you cannot later make it implement the Externalizable interface, since this will result in the creation of an incompatible stream.
+•	Deleting fields can cause a problem. Now, when the object is serialized, an earlier version of the class would set the old field to its default value since nothing was available within the stream. Consequently, this default data may lead the newly created object to assume an invalid state. [ tried, but it’s not working. Deleting field does not cause any problem as such ]
+
+•	Changing a non-static into static or non-transient into transient is not permitted as it is equivalent to deleting fields.
+•	You also cannot change the field types within a class, as this would cause a failure when attempting to read in the original field into the new field. [ tried, it’s working]
+•	You cannot alter the position of the class in the class hierarchy. Since the fully-qualified class name is written as part of the bytestream, this change will result in the creation of an incompatible stream.
+•	You cannot change the name of the class or the package it belongs to, as that information is written to the stream during serialization.  [ tried, it’s working ]
+
+----------------------------------------------------------
+=>GENERICS:
+
+public class Generic1<T>
+{
+	private T first;
+	void setVal(T first)
+	{
+		this.first=first;
+	}
+	T getVal()
+	{
+		return first;
+	}
+
+when u compile above class, compiler will remove all the generic information because JVM can't understand Generics. This is known as "Type Erasure".
+So after compilation the above class will be as follows:
+
+public class Generic1
+{
+	private Object first;
+	void setVal(Object first)
+	{
+		this.first=first;
+	}
+	Object getVal()
+	{
+		return first;
+	}
+
+
+
+before java 5
+
+List mylist=new ArrayList();
+
+mylist.add(new Integer(100));
+mylist.add("hello");
+mylist.add(new Double(3.4));
+
+    because "add()" method argument used to be java.lang.Object
+
+while reading
+
+String str=(String)mylist.get(1);   
+
+	because "get()" method return type used to be java.lang.Object.
+
+what is the risk involved in case of above code?
+
+if "Integer" is there at 1 position then we will get ClassCastException.
+
+java 5 onwards
+
+Generics
+
+List<String> mylist=new ArrayList<String>();
+
+now compiler will see to it that mylist will be used with String only or else it will give error which is much better than ClassCastException. 
+
+e.g.
+
+mylist.add("hello");
+mylist.add("welcome");
+mylist.add(100); //  compilation error
+
+at the time of reading
+
+String str=mylist.get(1); // no typecasting required
+
+if u say 
+Integer ob=mylist.get(0); // u will get compilation error
+
+Hence we can say that Generics provide "type-safety".
+
+
+
+List<? extends Animal> arr
+	it means
+		a) you can pass list of Animal or its sub types and not super types
+		b) you cannot add using "arr"
+
+
+List<? super Dog> arr
+	it means
+		a) you can pass list of Dog or its super types but not sub types
+		b) you can add only "Dog" using "arr"
+
+
+
+
+	disp(List<?> mylist) // u can pass list of any type.
+	{
+		add // not allowed
+
+
+	}
+
+		vs
+
+	disp(List<Object> mylist) // u can pass list of Object type only
+	{
+		add // allowed
+
+	}
+----------------------------
+COLLECTION:
+
+Why Collection API?
+	
+	Arrays are fixed in size.
+
+Collection API provides us
+	Containers
+		They are dynamic
+		Some of them are sorted
+		Some of them allow only unique elements
+		some of them are thread-safe
+		some of them are not thread-safe , so they are efficient
+		Some of them allow u to store key and value 
+		all the containers implement Serializable so that they can be easily persisted inside file system.
+
+	Iterator
+		allows u to traverse through containers.
+	Algorithms
+		sort,count,max,min etc.
+
+
+
+Entire support for Collection API has been given inside "java.util" package.
+
+
+
+Iterable (Interface) :-
+		i.Collection:-
+			a.List- CopyOnWriteArrayList, ArrayList, Vector(stack), LinkedList
+			b.Set- SortedSet(TreeSet), HashSet
+Collections :- it is class which contain static method as algorithm.
+
+List
+	index based, duplicates allowed
+
+
+Set
+	unique, sometimes sorted,duplicates ignored
+
+Map
+	key - value pair
+	put using key and value
+	get using only key
+
+	key must be unique and sometimes sorted.
+
+
+ArrayList 
+	good for traversal,random access
+Vector
+	slow, thread-safe, legacy class
+LinkedList
+	doubly linked list, good for insertion and deletion from middle.
+
+HashSet
+	fast, order not guaranteed
+TreeSet
+	slow, sorted
+HashMap
+	fastest map implementation
+TreeMap
+	slow, sorted keys
+Hashtable
+	slow,thread-safe,legacy class
+
+
+
+
+Fail-Fast Iterator
+	in case of ArrayList while u r traversing through the list using iterator if u try to 
+add inside the list, u get "ConcurrentModificationException". It means iterator of 
+ArrayList is "Fail-Fast".
+
+
+
+Fail-Safe Iterator
+	in case of CopyOnWriteArrayList when u create an iterator, it creates a snapshot of original list so that u can traverse it. If u try to add inside
+	 the list, element gets added inside original list.  It means iterator of CopyOnWriteArrayList is "Fail-Safe".
+
+
+
+put operation
+
+
+hashCode() is invoked to determine the bucket.
+
+hashcode  - first entry
+
+	subsequent entries
+
+hashcode - different - different bucket
+
+	   same  [ hash collision case]
+		==  - true - overwrite the value
+		      false
+			 equals - true - overwrite the value
+				false - linked list will be formed within a bucket i.e. same bucket having different Entries [Entry]
+				
+				
+get operation
+
+
+hashcode  - 
+	bucket is determined for search
+
+		==  - true - get the value
+		      false
+			 equals - true - get the value
+				false - linked list will be traverse and subsequently == and equals are invoked.
+
+
+
+EQUALS AND HASHCODE Contract
+
+1.Whenever it is invoked on the same object more than once during an execution of a Java application, the hashCode method must consistently return the same integer, provided no information used in equals comparisons on the object is modified. This integer need not remain consistent from one execution of an application to another execution of the same application.
+
+2.If two objects are equal according to the equals(Object) method, then calling the hashCode method on each of the two objects must produce the same integer result.
+
+3.It is not required that if two objects are unequal according to the equals(java.lang.Object) method, then calling the hashCode method on each of the two objects must produce distinct integer results. However, the programmer should be aware that producing distinct integer results for unequal objects may improve the performance of hashtables.
+
+Hash Collision:
+
+Since the internal array of HashMap is of fixed size, and if you keep storing objects, at some point of time hash function will return same bucket location for two different keys, this is called collision in HashMap. In this case, a linked list is formed at that bucket location and a new entry is stored as next node.
+
+TreeMap and TreeSet??
+
+Comparable --> able-to-compares-itself compareTo(Object o)
+Comparator --> compares two other objects compare(Object o1, Object o2)
+
+
+
+
+List<String> mylist=new ArrayList<String>();  // non-thread safe list
+
+List<String> mylist1=Collections.synchronizedList(mylist);
+
+	mylist1-  Thread safe list
+
+
+
+Map<String,Integer> mymap=new HashMap<String,Integer>();   // non-thread safe map
+
+Map<String,Integer> mymap1=Collections.synchronizedMap(mymap);
+
+	mymap1 - Thread safe map
+
+
+HashMap	TreeMap
+1) HashMap can contain one null key.	TreeMap cannot contain any null key.
+2) HashMap maintains no order.	TreeMap maintains ascending order.
+
+-------------------
+A default method is a method defined and not just declared in an interface whose method header begins with the default keyword. Every class that implements the interface inherits the interface's default methods and can override them.
+
+
+// A simple program to Test Interface default 
+// methods in java 
+interface TestInterface 
+{ 
+    // abstract method 
+    public void square(int a); 
+  
+    // default method 
+    default void show() 
+    { 
+      System.out.println("Default Method Executed"); 
+    } 
+} 
+  
+class TestClass static interface methods can be accessed only with the help of same interface in which they are declared.
+implements TestInterface 
+{ 
+    // implementation of square abstract method 
+    public void square(int a) 
+    { 
+        System.out.println(a*a); 
+    } 
+	public void show()
+	{
+	  System.out.println("in child show"); 
+	}
+  
+    public static void main(String args[]) 
+    { 
+        TestClass d = new TestClass(); 
+        d.square(4); 
+  
+        // default method executed 
+        d.show(); 
+    } 
+} 
+
+=> STATIC METHOD IN INTERFACE:
+
+-static interface methods can be accessed only with the help of same interface in which they are declared.
+-Static Methods in Interface are those methods, which are defined in the interface with the keyword static. 
+-Unlike other methods in Interface, these static methods contain the complete definition of the function and since the definition is complete and the method is static, therefore these methods cannot be overridden or changed in the implementation class.
+-Similar to Default Method in Interface, the static method in an interface can be defined in the interface, but cannot be overridden in Implementation Classes. To use a static method, Interface name should be instantiated with it, as it is a part of the Interface only.
+
+// Java program to demonstrate
+// static method in Interface.
+
+interface NewInterface {
+
+	// static method
+	static void hello()
+	{
+		System.out.println("Hello, New Static Method Here");
+	}
+
+	// Public and abstract method of Interface
+	void overrideMethod(String str);
+}
+
+// Implementation Class
+public class InterfaceDemo implements NewInterface {
+
+	public static void main(String[] args)
+	{
+		InterfaceDemo interfaceDemo = new InterfaceDemo();
+
+		// Calling the static method of interface
+		NewInterface.hello();
+
+		// Calling the abstract method of interface
+		interfaceDemo.overrideMethod("Hello, Override Method here");
+	}
+
+	// Implementing interface method
+
+	@Override
+	public void overrideMethod(String str)
+	{
+		System.out.println(str);
+	}
+}
+----------------
+=>LAMBDA
+Lambda expressions can work with only "functional interfaces"
+
+"functional interface" is the one which has only one abstract method. It may have static and default methods.
+
+"functional interface" was known as "SAM ( Single Abstract Method ) interface" before Java8.
+
+how to declare "functional" interface ?
+
+@FunctionalInterface
+interface Emp 
+{
+	void disp();
+	static void disp1()
+	{
+	}
+	default void disp2()
+	{
+	}
+}
+
+here annotation "@FunctionalInterface" is not compulsory, but if you use it and try to add one more abstract method , that will give you compilation error.
+
+e.g.
+
+@FunctionalInterface
+interface Emp     // error
+{
+	void disp();
+	static void disp1()
+	{
+	}
+	default void disp2()
+	{
+	}
+	void fun();  
+}
+
+
+or
+
+interface Emp1
+{
+	void disp1();
+}
+
+@FunctionalInterface
+interface Emp extends Emp1   // error
+{
+	void disp();
+	
+}
+
+
+
+
+
+if we have an abstract class with just one abstract method, lambda does not work. Lambda works only with Functional Interface i.e. interface with just one abstract method.
+
+
+Why cant a lambda expression work with non-functional interface ?
+A lambda expression can only be used for a "functional" interface - one that has only one non-default method.
+Basically, lambda expressions are a shorthand for single blocks of code, whereas a group of related blocks treated as a unit would be better represented as a proper class.
+
+public class Java8Tester {
+   public static void main(String args[]){
+      Java8Tester tester = new Java8Tester();
+		
+      //with type declaration
+      MathOperation addition = (int a, int b) -> a + b;
+		
+      //with out type declaration
+      MathOperation subtraction = (a, b) -> a - b;
+		
+	//with return statement along with curly braces
+      MathOperation multiplication = (int a, int b) -> { return a * b; };
+		
+      //without return statement and without curly braces
+      MathOperation division = (int a, int b) -> a / b;
+		
+      System.out.println("10 + 5 = " + tester.operate(10, 5, addition));
+      System.out.println("10 - 5 = " + tester.operate(10, 5, subtraction));
+      System.out.println("10 x 5 = " + tester.operate(10, 5, multiplication));
+      System.out.println("10 / 5 = " + tester.operate(10, 5, division));
+		
+      //with parenthesis
+      GreetingService greetService1 = message ->
+      System.out.println("Hello " + message);
+		
+      //without parenthesis
+      GreetingService greetService2 = (message) ->
+      System.out.println("Hello " + message);
+		
+      greetService1.sayMessage("Mahesh");
+      greetService2.sayMessage("Suresh");
+   }
+	
+   interface MathOperation {
+      int operation(int a, int b);
+   }
+	
+   interface GreetingService {
+      void sayMessage(String message);
+   }
+	
+   private int operate(int a, int b, MathOperation mathOperation){
+      return mathOperation.operation(a, b);
+   }
+}
+==================
+=>NIO Channels
+
+Channels are similar to Streams in traditional Java I/O API with the exceptions that they can provide three modes: input, output or bi-directional. 
+Streams on the other hand, are uni-directional (you were either using InputStream or OutputStream). 
+Channels interact directly with buffers and the native IO source, that is, file, or socket.
+
+
+
+for reading purpose
+
+	we read channel's data (file's data)  into buffer
+			program converts buffer to String.
+
+for writing purpose
+
+	program writes data into buffer
+			buffer is written to channel(file).
+
+
+Path is an interface and Paths is a final class of java.nio.file API. Path has been introduced in JDK 7. The use of Path is to locate a file in file system. Path has flexibility to locate the file by proving path in parts. Path provides file path attribute like file name, file system, parent name and root. Paths are used to get Path instance by its static method. Path returns java.io.File when we call Path.toFile().The instance of Path can be obtained by FileSystems and Paths class.
+
+Create Path Instance by Paths
+
+If we have a file located in the path as c:\temp\test.txt. We can get this path in many ways.
+
+Path path = Paths.get("c:/temp/test.txt" ); 
+Path path = Paths.get("c:/temp","test.txt" );
+Path path = Paths.get("c:","temp/test.txt" );
+Path path = Paths.get("c:","temp","test.txt");
+
+This is because Paths.get(String first, String more...) can accept one or more than one argument.
+-------------------------
+=>Stream in Java
+
+Introduced in Java 8, the Stream API is used to process collections of objects. A stream is a sequence of objects that supports various methods which can be pipelined to produce the desired result.
+The features of Java stream are –
+•	A stream is not a data structure instead it takes input from the Collections, Arrays or I/O channels.
+•	Streams don’t change the original data structure, they only provide the result as per the pipelined methods.
+•	Each intermediate operation returns a stream as a result, hence various intermediate operations can be pipelined. Terminal operations mark the end of the stream and return the result.
+
+list.stream().filter(i -> i > 10).mapToInt(i -> i).sum();
+
+stream() and  filter() methods return "Stream"
+mapToInt() returns "IntStream". Hence they are intermediate operations.
+
+sum() method of IntStream returns "int". Hence it is a terminal operation.
+
+A collection is a data structure that holds elements. Each element is computed before it actually becomes a part of that collection.
+On the other hand, a stream is not a data structure. A stream is a pipeline of operations that compute the elements on-demand. Though we can create a stream from a collection and apply a number of operations, the original collection doesn’t change. 
+
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+public class Demo1
+{
+private static int sumIterator(List<Integer> list) 
+{
+    Iterator<Integer> it = list.iterator();
+    int sum = 0;
+    while (it.hasNext()) 
+    {
+        int num = it.next();
+        if (num > 10) 
+        {
+            sum += num;
+        }
+    }
+    return sum;
+}
+public static void main(String args[])
+{
+	List<Integer> mylist=new ArrayList<Integer>();
+	mylist.add(4);
+	mylist.add(12);
+	mylist.add(3);
+	mylist.add(20);
+	int result=sumIterator(mylist);
+	System.out.println(result);
+}
+}
+
+
+
+
+
+forEach(System.out::println)
+
+	forEach has "Consumer" functional interface as an argument.
+
+	so what happens when we invoke "forEach" method.
+
+		it calls "accept" method of "Consumer".
+
+	what task "accept" must be performing?
+
+		ans:- System.out.println( given argument )
+
+
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Demo2
+{
+private static int sumIterator(List<Integer> list) 
+{
+	return list.stream().filter(i -> i > 10).mapToInt(i -> i).sum();
+}
+public static void main(String args[])
+{
+	List<Integer> mylist=new ArrayList<Integer>();
+	mylist.add(4);
+	mylist.add(12);
+	mylist.add(3);
+	mylist.add(20);
+	int result=sumIterator(mylist);
+	System.out.println(result);
+}
+}
+stringCollection.stream().filter((s) -> s.startsWith("a")).forEach(System.out::println);
+
+stringCollection.stream()
+		Returns a sequential Stream with this collection as its source. 
+
+Interface Stream<T>
+
+	filter(Predicate<? super T> predicate) 
+
+filter() accepts “Predicate”
+
+Predicates
+Predicates are boolean-valued functions of one argument. The interface contains various default methods for composing predicates to complex logical terms (and, or, negate)
+
+filter((s) -> s.startsWith("a"))
+here we are passing child class of "Predicate" 		[(s) -> s.startsWith("a")] which implements "test(T t)" method which returns boolean.
+
+filter() method
+Returns a stream consisting of the elements of this stream that match the given predicate. 
+
+filter() method returns
+	Stream
+		we are invoking "forEach()" method of stream which takes the argument as
+child class of "Consumer" functional interface .
+this child class of "Consumer" implements following function
+
+accept(T t) 
+
+Performs this operation on the given argument.
+In our case the operation is “System.out::println”
+
+
+forEach(System.out::println);
+	here forEach takes implementation of 
+
+Interface Consumer<T>
+•			Functional Interface:
+This is a functional interface and can therefore be used as the assignment target for a lambda expression or method reference.
+
+Consumers
+Consumers represents operations to be performed on a single input argument
+
+
+Collections in Java 8 are extended so you can simply create streams either by calling Collection.stream() or Collection.parallelStream().
+
+Filter accepts a predicate to filter all elements of the stream. This operation is intermediate which enables us to call another stream operation (forEach) on the result. ForEach accepts a consumer to be executed for each element in the filtered stream. ForEach is a terminal operation. It's void, so we cannot call another stream operation.
+
+
+
+
+
+
+filter(i -> i > 10);  // we are invoking
+
+	filter's argument is "Predicate" functional interface with
+			boolean test(T t)  abstract method
+
+
+
+now we need to understand what must be the logic inside "filter()" method ?
+
+
+Predicate's implementation
+
+class PredicateImpl implements Predicate
+{
+	public boolean test(Integer t)
+	{
+		if t>10 
+			return true;
+	}
+}
+
+filter(Predicate ref)
+{
+		traverse the stream
+		pass each and every number to "test" method
+
+		ref.test(number);
+		if true store these numbers in a new StreamforEach(System.out::println);     we are invoking
+
+
+forEach() method's argument is "Consumer" functional interface with
+	
+		void	accept(T t)   // abstract method
+			Performs this operation on the given argument.
+
+
+implementation of Consumer
+
+class ConsumerImpl implements Consumer
+{
+	void accept(T t)
+	{
+	   System.out.println(t);
+		this is because u have asked accept to print an element provided
+			System.out::println
+	}
+}
+
+how forEach() method must have been designed
+
+forEach(Consumer ref)
+{
+	traverse through the stream
+	pass each and every element to "accept()" method like this:
+		
+		ref.accept(element);
+	
+}
+
+
+
+		finally return that stream
+
+}
+
+
+	
+	
+	forEach(System.out::println);     we are invoking
+
+
+forEach() method's argument is "Consumer" functional interface with
+	
+		void	accept(T t)   // abstract method
+			Performs this operation on the given argument.
+
+
+implementation of Consumer
+
+class ConsumerImpl implements Consumer
+{
+	void accept(T t)
+	{
+	   System.out.println(t);
+		this is because u have asked accept to print an element provided
+			System.out::println
+	}
+}
+
+how forEach() method must have been designed
+
+forEach(Consumer ref)
+{
+	traverse through the stream
+	pass each and every element to "accept()" method like this:
+		
+		ref.accept(element);
+	
+}
+
+
+mapToInt(i -> i)           we are invoking
+
+since we are passing lambda expression, mapToInt() method must have functional interface as an argument.
+
+it's "ToIntFunction" with 
+	
+	int	applyAsInt(T value)    abstract method
+
+
+how mapToInt must be working?
+
+
+class ToIntFunctionImp implements ToIntFunction
+{
+	int applyAsInt(Integer value)
+	{
+		converts value into "int" 
+		and return
+	}
+}
+
+code inside "mapToInt()" method
+
+mapToInt(ToIntFunction ref)
+{
+	traverse the stream which has  got numbers 12 and 20
+
+	invoke 
+		ref.applyAsInt(12)
+			12 will come back as "int"
+			store it inside "IntStream"
+		ref.applyAsInt(20)
+			20 will come back as "int"
+			store it inside "IntStream"
+
+	finally return this "IntStream"
+}
+
+
+
+
+
+
+
+
+
+
+
+sorted((a,b)->b.compareTo(a))   // we are invoking
+
+sorted() method's argument is
+	Comparator functional interface which has got 
+
+
+		int compare(String a,String b)     abstract method
+
+
+
+implementation of Comparator
+
+class ComparatorImpl implements Comparator
+{
+	public int compare(String a,String b)
+	{
+		return b.compareTo(a);
+	}
+}
+
+sorted(Comparator ref)
+{
+	traverse the stream
+	and pass 2 elements every time to "compare" method of Comparator implementation
+
+		ref.compare(first element,second element)
+}	
+
+-Streams can be either sequential or parallel. Operations on sequential streams are performed on a single thread while operations on parallel streams are performed concurrent on multiple threads.
+
+
+
+
+-------------------------
+=>Method Reference
+-It is special type of lambda expression.
+-It is used to create lambda expression by referencing existing method.
+
+3 types:-
+1.static method
+2.instance method
+3.constructor
+
+
+Sometimes lambda does nothing but invokes an existing method. In that case we can use "Method Reference" which is more compact than lambda expression. That also means that "Method Reference" can work with "functional interface" only.
+
+Here there is an imp. rule.
+	abstract method's argument and the method which you invoke from the interface method must match with the arguments.
+
+package core1;
+
+interface Emp
+{
+	void mymethod();
+}
+class Sample
+{
+	void disp()
+	{
+		System.out.println("in Sample disp");
+	}
+}
+public class Demo1
+{
+	public static void main(String args[])
+	{
+		
+		Sample s1=new Sample();
+		// using lambda
+		Emp ref1=()->{ s1.disp();};
+System.out.println("Implementation classname is\t"+ref1.getClass().getName());
+		ref1.mymethod();
+
+	// using method reference
+		Emp ref2=s1::disp;
+System.out.println("Implementation classname is\t"+ref2.getClass().getName());
+		ref2.mymethod();
+		
+	}
+}
+		
+		
+		//package core1;
+interface Emp
+{
+	void mymethod();
+}
+class Sample
+{
+	public Sample()
+	{
+		System.out.println("inside Sample no-arg");
+	}
+}
+public class Demo4
+{
+	public static void main(String args[])
+	{
+		// using lambda
+		Emp ref1=()->{ new Sample();};
+System.out.println("Implementation classname is\t"+ref1.getClass().getName());
+		ref1.mymethod();
+		// using method reference
+		Emp ref2=Sample::new;
+System.out.println("Implementation classname is\t"+ref2.getClass().getName());
+		ref2.mymethod();
+		
+	}
+}
+		
+		
+		
+		
+
+
+/* Even though no-arg constructor is available
+inside "Sample", using method reference u can
+invoke only "parameterized constructor" because
+"mymethod() is parameterized"
+*/
+package core1;
+interface Emp
+{
+	void mymethod(int k);
+}
+class Sample
+{
+	public Sample()
+	{
+		System.out.println("inside Sample no-arg");
+	}
+	public Sample(int k)
+	{
+		System.out.println("inside Sample param\t"+k);
+	}
+}
+public class Demo6
+{
+	public static void main(String args[])
+	{
+		// using lambda
+		Emp ref1=(n)->{ new Sample(n);};
+System.out.println("Implementation classname is\t"+ref1.getClass().getName());
+		ref1.mymethod(10);
+		// using method reference
+		Emp ref2=Sample::new;
+System.out.println("Implementation classname is\t"+ref2.getClass().getName());
+		ref2.mymethod(20); // parameterized constructor
+		
+	}
+}
+	
+===================================
+=>Optional Class:-
+
+-to handle null checks
+-to avoid null pointer exception
+
+The purpose of Optional is not to replace every single null reference in your codebase but rather to help design better APIs in which—just by reading the signature of a method—users can tell whether to expect an optional value. In addition, Optional forces you to actively unwrap an Optional to deal with the absence of a value; as a result, you protect your code against unintended null pointer exceptions.	
+		
+		
+//package optional_pro;
+
+class MyClass
+{
+	public String disp()
+	{
+		return "in disp of MyClass";
+	}
+}
+public class Demo {
+	//private static MyClass ref=new MyClass();
+	 private static MyClass ref;
+	
+	public static MyClass getMyClass()
+	{
+		return ref;
+	}
+	public static void main(String[] args)
+	{
+		MyClass temp=getMyClass();
+		System.out.println(temp.disp());   // NullPointerException
+		/*if(temp!=null)
+		{
+			System.out.println(temp.disp());
+		}
+		else
+		{
+			System.out.println("temp is null");
+		}*/
+
+	}
+}
+
+
+//package optional_pro;
+
+import java.util.Optional;
+
+class MyClass
+{
+	public String disp()
+	{
+		return "in disp of MyClass";
+	}
+}
+public class Demo {
+	private static MyClass ref=new MyClass();
+	// private static MyClass ref;
+	
+	public static MyClass getMyClass()
+	{
+		return ref;
+	}
+	public static void main(String[] args)
+	{
+
+		Optional<MyClass> op=Optional.ofNullable(getMyClass());
+		System.out.println(op.map(MyClass::disp).orElse("could not get MyClass instance"));
+		//System.out.println(op.map(MyClass::disp));
+
+	}
+
+}
+System.out.println(op.filter(s->s.equalsIgnoreCase("sachin")));
+		returns "Optional<Sachin>"
+
+op.filter(s->s.equalsIgnoreCase("rahul"))
+	returns "Optional.empty"
+
+System.out.println(op.filter(s->s.equalsIgnoreCase("rahul")).isPresent());
+	
+
+
+Optional<T>	filter(Predicate<? super T> predicate)
+
+If a value is present, and the value matches the given predicate, return an Optional describing the value, otherwise return an empty Optional.
+
+Optional<MyClass> op=Optional.ofNullable(getMyClass());
+		
+op.ifPresent(k->System.out.println(k.disp()));
+
+
+void	ifPresent(Consumer<? super T> consumer)
+
+If a value is present, invoke the specified consumer with the value, otherwise do nothing.
+
+it means that if getMyClass() method returns instance of MyClass, then 
+
+op.ifPresent(k->System.out.println(k.disp()));
+
+"k" will represent that instance and we can invoke "k.disp()".
+
+
+
+Optional<MyClass> op=Optional.ofNullable(getMyClass());
+
+
+boolean	isPresent()
+
+Return true if there is a value present, otherwise false.
+
+so if getMyClass() returns instance of MyClass, then "op.isPresent()" will return true and if getMyClass() returns null then "op.isPresent()" will return false.
+
+System.out.println(op.map(MyClass::disp).orElse("could not get MyClass instance"));
+
+
+public <U> Optional<U> map(Function<? super T,? extends U> mapper)
+
+If a value is present( ref not null ), apply the provided mapping function to it, and if the result is non-null, return an Optional describing the result. 
+Otherwise if a value is not present, returns an empty Optional i.e.
+Optional.empty
+
+Optional<MyClass> op=Optional.ofNullable(getMyClass());
+
+static <T> Optional<T>	ofNullable(T value)
+
+Returns an Optional describing the specified value, if non-null, otherwise returns an empty Optional.
+
+That means in our example, if "getMyClass()" returns an instance of "MyClass", ofNullable will return "Optional<MyClass>".
+
+and if "getMyClass()" returns null, ofNullable will return "Optional.empty" i.e. empty Optional.
+
+
+Optional<MyClass> op=Optional.ofNullable(getMyClass());
+
+System.out.println(op.map(MyClass::disp).orElse("could not get MyClass instance"));
+
+
+T	orElse(T other)
+
+Return the value if present, otherwise return other.
+
+Explanation:
+	here if getMyClass() returns instance of MyClass,
+		op will have reference for that instance.
+
+		op.map(MyClass::disp)
+			will invoke "disp" on that instance of MyClass and return "Optional<String>
+			now you are invoking "orElse("could not get MyClass instance")" on "Optional<String>"
+
+		since Optional<String> has a value "in disp of MyClass", it will be returned by "orElse()" method.
+			
+
+if getMyClass() returns null,
+		op will be empty.
+
+		op.map(MyClass::disp)
+			will not invoke "disp" and return "Optional.empty".
+			now you are invoking "orElse("could not get MyClass instance")" on "Optional.empty".
+
+		since Optional.empty does not have a value , "orElse()" method will return "could not get MyClass instance".
+
+
+String getName()
+
+Optional<String> op1=op.map(Employee::getName);
+	since "getName()" return type is "String", return type of "op.map(Employee::getName)" is "Optional<String>"
+
+
+
+
+Optional<String> getDesig()
+
+Optional<String> op2=op.map(Employee::getDesig);  // error
+
+	since "getDesig()" return type is "Optional<String>", return type of "op.map(Employee::getDesig)" is "Optional<Optional<String>>"
+
+so above statement has to be written as:
+
+
+Optional<Optional<String>> op1=op.map(Employee::getDesig);
+
+here if you want to avoid nested Optional, solution is use "flatMap()" instead of "map".
+
+e.g.
+
+Optional<String>op2=op.flatMap(Employee::getDesig);
+
+
+
+
+
+
+		
+
+
+
+
+
+			
+
+
+
+
+
+
+
+
+
+
+
+
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
