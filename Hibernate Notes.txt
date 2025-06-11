@@ -1,0 +1,157 @@
+- An ORM tool simplifies the data creation, data manipulation and data access and It is a programming technique that maps the object to the data stored in the database.
+- The ORM tool internally uses the JDBC API to interact with the database. 
+
+What is JPA?
+Java Persistence API (JPA) is a Java specification that provides specific functionality and is a standard for ORM tools.
+javax.persistence package contains the JPA classes and interfaces.
+
+✅ Hibernate Framework - Summary for Interview
+🔹 Why Hibernate? (Limitations of JDBC)
+- JDBC code is database-dependent; switching DBs is costly.
+- Not portable across different databases.
+- Requires boilerplate code: long repetitive code reduces readability.
+- Exception handling is mandatory.
+- No support for Object-level relationships.
+- Manual work needed for DDL operations (e.g., table creation).
+
+🟢 Hibernate solves these issues with abstraction, portability, reduced code, and OOP support.
+
+🔹 What is Hibernate?
+Hibernate is an open-source, light-weight, non-invasive Java ORM (Object-Relational Mapping) framework.
+It handles persistence logic (storing data for long-term use).
+Abstracts JDBC — does internal DB connection, query execution, etc.
+Helps build database-independent applications using HQL (Hibernate Query Language).
+
+
+
+| Feature                  | JDBC                      | Hibernate                     |
+| ------------------------ | ------------------------- | ----------------------------- |
+| DB Dependency            | High (SQL is DB-specific) | Low (Uses HQL)                |
+| Boilerplate Code         | Yes                       | No                            |
+| Exception Handling       | Mandatory                 | Optional                      |
+| Object Mapping           | No (primitive data only)  | Yes (uses POJOs)              |
+| Auto DDL (Create Tables) | Manual                    | Automatic                     |
+| Primary Key Generation   | Manual                    | Automatic                     |
+| Cache Support            | No                        | Yes (1st & 2nd level caching) |
+| Portability              | Low                       | High                          |
+
+
+🔹 Hibernate Features (for Interview Mention)
+Auto DDL (Create, Alter, Drop tables automatically)
+
+Auto Primary Key Generation
+
+HQL (Database-independent query language)
+
+Caching Support
+
+Object-Relational Mapping (Maps tables to Java objects)
+
+Can be used standalone or with other frameworks (Spring, Struts, etc.)
+
+=> Lifecycle
+1. Transient State - object created
+					 not connected in db
+2. Persistent State- object is connected with session
+					 save and load entity in db
+3. Detached State- close session /clear cache
+4. Removed State- entity object deleted from db 
+
+=>🔹 What is JPA?
+JPA = Java Persistence API
+It’s just a specification, not actual code.
+It tells how ORM (Object-Relational Mapping) should work in Java.
+Provided by javax.persistence package.
+To actually use JPA, we need an implementation like Hibernate.
+
+✅ Key Points:
+JPA is like a set of rules.
+Works with EntityManager to handle DB operations.
+Uses JPQL (Java Persistence Query Language).
+Helps switch between different ORM tools easily (like from Hibernate to EclipseLink).
+
+🔹 What is Hibernate?
+Hibernate is an ORM Framework (real working software).
+It is the most popular implementation of JPA.
+Provided by org.hibernate package.
+You can use Hibernate with or without JPA.
+
+✅ Key Points:
+Hibernate follows all JPA rules and adds extra features.
+Uses Session and SessionFactory for DB operations.
+Uses HQL (Hibernate Query Language).
+Handles complex mapping, caching, and database portability.
+
+| Feature        | JPA                                     | Hibernate                           |
+| -------------- | --------------------------------------- | ----------------------------------- |
+| Type           | Specification (API)                     | Framework (Implementation)          |
+| Package        | `javax.persistence`                     | `org.hibernate`                     |
+| DB Interface   | `EntityManager`, `EntityManagerFactory` | `Session`, `SessionFactory`         |
+| Query Language | JPQL                                    | HQL                                 |
+| Purpose        | Defines how ORM tools should work       | Actual tool that works with the DB  |
+| Flexibility    | Lets you switch between ORM tools       | Tightly coupled unless used via JPA |
+
+🧠 Why JPA is Needed?
+JPA allows developers to write code to a standard.
+You can change ORM tool (e.g., Hibernate to EclipseLink) without rewriting business logic.
+Ensures code is less dependent on a specific tool.
+
+| **Feature**                | **JDBC** (Java Database Connectivity)                                   | **Hibernate** (ORM Framework)                                                             |
+| -------------------------- | ----------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
+| **Object Mapping**         | You have to write code manually to map Java objects to database tables. | Hibernate automatically maps Java objects to tables using annotations.                    |
+| **Query Language**         | Uses plain SQL (Structured Query Language).                             | Uses HQL (Hibernate Query Language) which is similar to SQL but understands Java objects. |
+| **Exception Handling**     | You must handle exceptions like `SQLException` using try-catch.         | Hibernate handles exceptions internally using unchecked exceptions.                       |
+| **Database Dependency**    | Code is tightly coupled to a specific database.                         | Code works with many databases; just change config slightly.                              |
+| **Relationship Mapping**   | Hard to manage relations like one-to-many or many-to-one.               | Easy to define relationships using annotations.                                           |
+| **Type**                   | A low-level API to connect Java with the database.                      | A complete Java framework that manages everything.                                        |
+| **Lazy Loading Support**   | Not supported (fetches everything eagerly).                             | Supported (loads data only when needed).                                                  |
+| **Performance**            | Slower because of manual handling.                                      | Faster due to caching, lazy loading, and smart fetching.                                  |
+| **Transaction Management** | You must manage transactions manually (begin, commit, rollback).        | Hibernate handles transactions for you automatically.                                     |
+| **Support**                | Better community and customer support.                                  | Community support is available but might be slower.                                       |
+
+
+| **Feature**              | **ORM (Object Relational Mapping)**                               | **JDBC (Java Database Connectivity)**                            |
+| ------------------------ | ----------------------------------------------------------------- | ---------------------------------------------------------------- |
+| **Speed**                | Slightly slower than JDBC (because of extra abstraction).         | Faster than ORM for basic operations.                            |
+| **SQL Requirement**      | You write **less SQL** – much is handled automatically.           | You must write **full SQL queries** manually.                    |
+| **Code for Saving Data** | Automatically stores Java objects to DB using mapping.            | You need to **write all the code** to insert/update data.        |
+| **Frontend Integration** | ORM tools like Hibernate are easy to connect with frontend.       | JDBC is not frontend-friendly and needs more setup.              |
+| **Backend Flow**         | ORM internally uses JDBC to interact with the DB.                 | JDBC directly communicates with the database.                    |
+| **Flexibility**          | Very flexible – you can fetch, update even a single field easily. | Less flexible – you must manage result sets and update manually. |
+| **Ease of Use**          | Easier to use in large projects due to automatic mapping.         | More manual work – better for small/simple applications.         |
+| **Object Mapping**       | Maps Java objects to DB tables automatically.                     | No built-in mapping – you handle data conversion manually.       |
+
+Using hibernate.cfg.xml (main XML file defining the database JDBC details, SQL dialects, etc.,) a mapping file that maps the columns of a table and a POJO class. (Here it is geekuser.hbm.xml) we can do all the CRUD operations easily in Hibernate.
+
+ibernate SessionFactory has three methods namely  getCurrentSession(), openSession() and openStatelessSession(). In our code, we are using openSession(). 
+Annotations
+
+Use of annotations
+
+@Entity 	Used for declaring any POJO class as an entity for a database
+@Table	Used to change table details, some of the attributes are-
+name - override the table name,schema,catalogue,enforce unique constraints
+@Id	Used for declaring a primary key inside our POJO class
+@GeneratedValue	Hibernate automatically generate the values with reference to the internal sequence and we don't need to set the values manually.
+@Column	It is used to specify column mappings. It means if in case we don't need the name of the column that we declare in POJO but we need to refer to that entity you can change the name for the database table. Some attributes are-
+
+Name - We can change the name of the entity for the database
+length - the size of the column mostly used in strings
+unique - the column is marked for containing only unique values
+nullable - The column values should not be null. It's marked as NOT
+@Transient	Tells the hibernate, not to add this particular column
+@Temporal	This annotation is used to format the date for storing in the database
+@Lob	Used to tell hibernate that it's a large object and is not a simple object
+@OrderBy	
+This annotation will tell hibernate to OrderBy as we do in SQL.
+
+For example - we need to order by student firstname in ascending order
+
+@OrderBy("firstname asc") 
+
+Flow
+Configuration: Loads and parses hibernate.cfg.xml, creating a Configuration object.
+SessionFactory: Reads the configuration and builds a SessionFactory. This is a singleton object used throughout the application.
+Session: Created from the SessionFactory to represent a single unit of work with the database. Each session is used to perform database operations.
+Transaction: Manages the atomicity of a group of operations. Transactions are started, committed, or rolled back within a session.
+Query: Retrieves data from the database using HQL or Criteria API. Queries are created, executed, and results are processed.
