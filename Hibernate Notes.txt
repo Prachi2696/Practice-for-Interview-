@@ -155,3 +155,188 @@ SessionFactory: Reads the configuration and builds a SessionFactory. This is a s
 Session: Created from the SessionFactory to represent a single unit of work with the database. Each session is used to perform database operations.
 Transaction: Manages the atomicity of a group of operations. Transactions are started, committed, or rolled back within a session.
 Query: Retrieves data from the database using HQL or Criteria API. Queries are created, executed, and results are processed.
+
+Hibernate Architecture – Easy Notes
+Hibernate has a layered architecture that separates different concerns and simplifies database interaction using Java objects.
+
+✅ 1. Configuration
+First object created in a Hibernate app.
+Loads database settings and mapping info.
+Comes from:
+hibernate.cfg.xml (XML config file)
+hibernate.properties
+
+🟢 Purpose: Sets up database connection and Java class to DB table mapping.
+
+✅ 2. SessionFactory
+Created from the Configuration object.
+Heavyweight and thread-safe – created once during app startup.
+One per database.
+Used to get Session objects.
+
+🟢 Purpose: Produces sessions for DB operations.
+
+✅ 3. Session
+Created from SessionFactory.
+Lightweight and not thread-safe.
+Used to save, update, delete, or fetch objects from the DB.
+Open only when needed.
+
+🟢 Purpose: Main interface between Java app and DB.
+
+✅ 4. Transaction
+Manages DB operations as a unit of work.
+Ensures all operations commit or rollback together.
+Works with JDBC or JTA.
+
+🟢 Purpose: Group multiple DB operations safely.
+
+✅ 5. Query
+Uses HQL or SQL to fetch data.
+You can set parameters, limit rows, etc.
+🟢 Purpose: Custom data retrieval using queries.
+
+✅ 6. Criteria (or CriteriaBuilder in JPA)
+Used for object-oriented queries (no SQL/HQL needed).
+
+More readable and flexible.
+🟢 Purpose: Dynamic query creation using Java code.
+
+StandardServiceRegistry ssr = new StandardServiceRegistryBuilder().configure("hibernate.cfg.xml").build();  
+Metadata meta = new MetadataSources(ssr).getMetadataBuilder().build();  
+
+// Create the SessionFactory Instance
+SessionFactory factory = meta.getSessionFactoryBuilder().build();  
+
+// Create the session
+Session session = factory.openSession();  
+
+// Create the transaction
+Transaction t = session.beginTransaction();
+
+hibernate.cfg.xml
+
+<?xml version='1.0' encoding='UTF-8'?>  
+<!DOCTYPE hibernate-configuration PUBLIC  
+   "-//Hibernate/Hibernate Configuration DTD 5.3//EN"  
+   "http://hibernate.org/dtd/hibernate-configuration-3.0.dtd">  
+
+<hibernate-configuration>  
+   <session-factory>  
+      <property name="hbm2ddl.auto">update</property>  
+      <property name="dialect">org.hibernate.dialect.MySQL8Dialect</property>  
+      <property name="connection.url">jdbc:mysql://localhost/TUTORIALSPOINT</property>  
+      <property name="connection.username">root</property>  
+      <property name="connection.password">guest123</property>  
+      <property name="connection.driver_class">com.mysql.cj.jdbc.Driver</property>  
+      <mapping resource="employee.hbm.xml"/>  
+   </session-factory>  
+</hibernate-configuration>
+
+The hbm2ddl.auto property in Hibernate defines how your database schema is handled. Possible values are:
+
+create − If the value is 'create', Hibernate creates a new table in the database when the SessionFactory object is created. In case a table exists in the database with the same name, it deletes the table along with data and creates a new table.
+update − If the value is 'update', then Hibernate first validates whether the table is present in the database. If present, it alters that table as per the changes. If not, it creates a new one.
+validate − If the value is 'validate', then Hibernate only verifies whether the table is present. If the table does not exist then it throws an exception.
+create-drop − If the value is 'create-drop', then Hibernate creates a new table when SessionFactory is created, performs required operations, and deletes the table when SessionFactory is destroyed. This value is used for testing hibernate code.
+none − It does not make any changes to the schema.
+
+Employee.hbm.xml
+
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "Employee" table = "EMPLOYEE">
+      
+      <meta attribute = "class-description">
+         This class contains the employee detail. 
+      </meta>
+      
+      <id name = "id" type = "int" column = "id">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "firstName" column = "first_name" type = "string"/>
+      <property name = "lastName" column = "last_name" type = "string"/>
+      <property name = "salary" column = "salary" type = "int"/>
+      
+   </class>
+</hibernate-mapping>
+
+🔸 Hibernate Caching – Simplified Notes
+✅ What is Caching?
+Caching stores frequently accessed data in memory.
+
+Reduces database hits → improves performance.
+
+✅ Types of Hibernate Caching
+1️⃣ First-Level Cache
+Default and always available.
+
+Works per Session.
+
+If the same object is fetched again in the same session → fetched from cache, not from DB.
+
+🟢 No setup needed.
+
+2️⃣ Second-Level Cache
+Optional, shared across Sessions.
+
+Helps store objects across sessions.
+
+You can cache specific entity classes.
+
+🛠️ Steps to use:
+
+Enable cache in hibernate.cfg.xml
+
+Choose a cache provider (e.g., EHCache, OSCache, JBoss Cache).
+
+Add <cache usage="read-write"/> in mapping file.
+
+3️⃣ Query-Level Cache
+Caches query results.
+
+Useful when same query is run with same parameters often.
+
+🛠️ Steps to use:
+
+Enable in hibernate.cfg.xml:
+<property name="hibernate.cache.use_query_cache">true</property>
+
+✅ Best Practices
+Use first-level cache always (default).
+Enable second-level cache for frequently used, rarely changing data.
+Use query cache only for static queries with repeatable parameters.
+Test performance before and after enabling cache.
+🔄 Hibernate Object Lifecycle Recap
+In Hibernate, an entity (e.g., Employee) passes through several states:
+
+Transient – New object, not associated with any Hibernate session.
+
+Persistent – Bound to a session and tracked for changes.
+
+Detached – Once the session is closed, the object becomes detached.
+
+Removed – Marked for deletion from DB.
+
+🧩 Role of Interceptor
+The Interceptor interface provides callbacks (hook methods) that let you interact with these state transitions.
+
+Hibernate automatically calls these methods, enabling tasks like:
+
+| Method           | Purpose                                                |
+| ---------------- | ------------------------------------------------------ |
+| `onSave()`       | Called **before object is inserted**                   |
+| `onFlushDirty()` | Called **before object is updated**                    |
+| `onDelete()`     | Called **before object is deleted**                    |
+| `onLoad()`       | Called **before object is initialized (lazy loading)** |
+| `preFlush()`     | Called **before flush() is executed**                  |
+| `postFlush()`    | Called **after flush() is executed**                   |
+| `findDirty()`    | Used to determine which properties changed             |
+| `isUnsaved()`    | Used to determine if object is new                     |
+| `instantiate()`  | Controls object instantiation                          |
+
