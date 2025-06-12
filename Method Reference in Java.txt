@@ -1,0 +1,150 @@
+Here’s a concise summary and interview-style breakdown of the topic “Java Method References”, including common interview questions and how to answer them:
+
+---
+
+## ✅ Java Method References - Quick Summary
+
+Definition:
+A method reference is a shorthand syntax for a lambda expression that only calls a method. It improves code readability and reuses existing methods.
+
+Prerequisites:
+
+ Functional interfaces (e.g., `Function`, `Consumer`)
+ Lambda expressions
+
+General Syntax:
+
+```java
+ClassName::methodName
+objectRef::methodName
+ClassName::new
+```
+
+---
+
+## 🔍 Types of Method References
+
+| Type                                    | Syntax                      | Example                       |
+| --------------------------------------- | --------------------------- | ----------------------------- |
+| 1. Static Method                        | `ClassName::staticMethod`   | `Math::max`                   |
+| 2. Instance Method of Particular Object | `objRef::instanceMethod`    | `System.out::println`         |
+| 3. Instance Method of Arbitrary Object  | `ClassName::instanceMethod` | `String::compareToIgnoreCase` |
+| 4. Constructor Reference                | `ClassName::new`            | `Person::new`                 |
+
+---
+
+## 💡 Interview Questions with Answers
+
+### 🔸 Basic
+
+1. What is a method reference in Java?
+
+    A method reference is a way to refer to a method without invoking it. It is used to make code more concise and readable, especially when working with lambda expressions.
+
+2. How is a method reference different from a lambda expression?
+
+    A lambda expression defines a method inline, while a method reference refers to an existing method by name using `::`.
+
+3. What are the types of method references in Java 8?
+
+    Static method reference
+    Instance method reference of a particular object
+    Instance method reference of an arbitrary object
+    Constructor reference
+
+4. Can method references be used with functional interfaces?
+
+    Yes, they are meant to be used with functional interfaces like `Function`, `Consumer`, `Supplier`, etc.
+
+---
+
+### 🔸 Intermediate
+
+5. What is the benefit of using method references?
+
+    Improved code readability
+    Better reusability of methods
+    Integration with functional-style programming
+
+6. Write a method reference equivalent for this lambda: `x -> System.out.println(x)`
+
+    `System.out::println`
+
+7. How does a constructor reference work in Java?
+
+    It refers to the constructor of a class using `ClassName::new` and is often used with `Supplier<T>` or other functional interfaces that return objects.
+
+8. What will be the output of this code snippet?
+
+   ```java
+   List<String> list = Arrays.asList("A", "B", "C");
+   list.forEach(System.out::println);
+   ```
+
+    Output:
+
+     ```
+     A  
+     B  
+     C  
+     ```
+
+---
+
+### 🔸 Advanced
+
+9. Can you use method references in stream operations?
+
+    Yes, for example:
+
+     ```java
+     list.stream().map(String::toUpperCase).forEach(System.out::println);
+     ```
+
+10. Explain the difference between `ClassName::instanceMethod` and `objectRef::instanceMethod`.
+
+     `ClassName::instanceMethod` is for arbitrary objects, used in stream/map/filter contexts.
+      E.g., `String::toLowerCase`
+     `objectRef::instanceMethod` is for a specific object, e.g., `myPrinter::print`.
+
+11. Can method references be used with custom comparator logic?
+
+     Yes, both static and instance method references can be used:
+
+      ```java
+      Collections.sort(personList, Person::compareByName);
+      ```
+
+---
+
+## 🧠 Practice Exercise (Output-Based)
+
+```java
+import java.util.function.Function;
+
+public class Demo {
+    static int square(int x) {
+        return x  x;
+    }
+
+    public static void main(String[] args) {
+        Function<Integer, Integer> func = Demo::square;
+        System.out.println(func.apply(5));
+    }
+}
+```
+
+Q: What will be the output?
+A: `25`
+
+---
+
+## 📚 Common Use Cases
+
+ Printing values: `list.forEach(System.out::println)`
+ Creating new objects: `List<Person> people = getList(Person::new);`
+ Sorting with comparator: `Collections.sort(list, String::compareToIgnoreCase);`
+
+---
+
+Would you like Java-based coding questions or hands-on exercises on method references?
