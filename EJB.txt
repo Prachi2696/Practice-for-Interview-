@@ -1,0 +1,135 @@
+EJB (Enterprise JAVA Beans)
+
+Thanks, Prachi! You've shared a detailed explanation of **Enterprise JavaBeans (EJB)**. Here's a simplified **summary**, comparison, and some clarifications to help reinforce your understanding.
+
+---
+
+#### 🌐 What is EJB (Enterprise JavaBeans)?
+
+**EJB (Enterprise JavaBeans)** is a **server-side component architecture** used in Java EE (Jakarta EE) to build **scalable, distributed, and secure** enterprise-level applications.
+
+---
+
+## 📌 **Types of EJB**
+
+There are 3 main types:
+
+| Type                          | Purpose                                                      |
+| ----------------------------- | ------------------------------------------------------------ |
+| **Session Bean**              | Handles business logic                                       |
+| **Message-Driven Bean (MDB)** | Processes asynchronous messages from a queue (JMS)           |
+| **Entity Bean**               | (Deprecated) Used for database persistence (replaced by JPA) |
+
+---
+
+## 🔹 1. **Session Beans**
+
+These are used for implementing **business logic** and are further classified into:
+
+### a. **Stateless Session Beans**
+
+* No client-specific data is maintained.
+* Every method call is independent.
+
+```java
+@Stateless
+public class CalculatorBean {
+    public int add(int a, int b) {
+        return a + b;
+    }
+}
+```
+
+### b. **Stateful Session Beans**
+
+* Maintains client-specific state across method calls.
+
+```java
+@Stateful
+public class ShoppingCart {
+    private List<String> items = new ArrayList<>();
+
+    public void addItem(String item) {
+        items.add(item);
+    }
+}
+```
+
+### c. **Singleton Session Beans**
+
+* Single shared instance for all clients (like a global object).
+* Useful for cache, config, etc.
+
+```java
+@Singleton
+public class ConfigBean {
+    private Map<String, String> config = new HashMap<>();
+}
+```
+
+---
+
+## 🔹 2. **Message-Driven Beans (MDB)**
+
+* Listens to **JMS (Java Message Service)** queues or topics.
+* Processes messages asynchronously (like Kafka consumers).
+
+```java
+@MessageDriven(activationConfig = {
+  @ActivationConfigProperty(propertyName = "destinationType", propertyValue = "javax.jms.Queue")
+})
+public class EmailListener implements MessageListener {
+    public void onMessage(Message message) {
+        // handle the message
+    }
+}
+```
+
+---
+
+## 🔐 **Features of EJB**
+
+| Feature                    | Description                                 |
+| -------------------------- | ------------------------------------------- |
+| **Transaction Management** | Declarative and programmatic                |
+| **Security**               | Role-based access                           |
+| **Remote Access**          | EJB can be accessed remotely                |
+| **Lifecycle Management**   | Container manages bean lifecycle            |
+| **Interceptors**           | Pre/post processing logic using annotations |
+
+---
+
+## ✅ **Why (or Why Not) Use EJB Today?**
+
+### 👍 Pros:
+
+* Built-in transaction and security management
+* Good for distributed enterprise systems
+* Scalable and robust
+
+### 👎 Cons:
+
+* **Heavyweight**, complex to set up
+* **Deprecated** features like Entity Beans
+* Modern apps prefer **Spring**, **JPA**, **Spring Boot**, **Quarkus**
+
+---
+
+## 📌 Real-World Use
+
+* Large, legacy enterprise systems still use EJBs.
+* New projects often **avoid EJB** in favor of **Spring-based** solutions.
+
+---
+
+Would you like a comparison between **EJB vs Spring**, or a small quiz/code demo on EJBs?
+
+
+| Feature              | **Entity (JPA)**         | **Entity Bean (EJB)**              |
+| -------------------- | ------------------------ | ---------------------------------- |
+| API Used             | JPA / Hibernate          | EJB 2.x (now deprecated)           |
+| Container Dependency | No (works in Java SE/EE) | Yes (needs EJB container)          |
+| Simplicity           | Simple POJO              | Complex setup                      |
+| Annotations          | `@Entity`, `@Id`, etc.   | `@Entity` (EJB 3) or XML (EJB 2.x) |
+| Status               | Modern, widely used      | Deprecated and replaced by JPA     |
+| Interface Needed     | No                       | Yes (Home and Remote interfaces)   |
