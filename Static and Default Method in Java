@@ -1,0 +1,58 @@
+Default and Static Method
+
+A default method is a concrete method (i.e., with implementation) inside an interface.
+A static method in an interface belongs to the interface itself and not to its implementations.
+
+| Feature             | `default` method             | `static` method                     |
+| ------------------- | ---------------------------- | ----------------------------------- |
+| Can have body?      | ✅ Yes                        | ✅ Yes                               |
+| Can be overridden?  | ✅ Yes, by implementing class | ❌ No, belongs to the interface only |
+| Inherited by class? | ✅ Yes                        | ❌ No                                |
+| Called via object?  | ✅ Yes                        | ❌ No, only via interface name       |
+| Introduced in       | Java 8                       | Java 8                              |
+
+❓Common Interview Questions
+🔸 Q1: Why were default methods introduced in Java 8?
+To enable interface evolution without breaking existing code by allowing method definitions inside interfaces.
+
+🔸 Q2: Can we override a static method from an interface?
+❌ No, static methods in interfaces are not inherited by implementing classes and cannot be overridden.
+
+🔸 Q3: What happens if two interfaces have the same default method?
+If a class implements both interfaces, it must override the method to resolve the conflict.
+
+interface A {
+    default void show() {
+        System.out.println("Interface A");
+    }
+}
+
+interface B {
+    default void show() {
+        System.out.println("Interface B");
+    }
+}
+
+class C implements A, B {
+    // Must override to resolve the conflict
+    public void show() {
+        // Option 1: Provide custom logic
+        System.out.println("Class C resolving conflict");
+
+        // Option 2: Or call one of the interfaces explicitly
+        A.super.show(); // OR B.super.show();
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        C obj = new C();
+        obj.show();  // Output: Class C resolving conflict
+    }
+}
+
+If two interfaces have the same default method, a class that implements both:
+
+❗ Must override the method
+
+✅ Can call specific version using A.super.method() or B.super.method()
