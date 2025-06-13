@@ -520,6 +520,13 @@ public class MyPrototypeService {
 > ✅ Answer: When each user/action needs a **fresh instance**, like a non-shared configuration object or a custom form handler.
 
 ---
+In Spring Framework, global scope beans generally refer to beans that are shared across the entire application context — meaning they are created once and used throughout the application's lifecycle.
+What You Mean by Global Scope
+When people refer to global beans, they usually mean:
 
+Beans defined with singleton scope.
 
+Beans that are shared across multiple modules or components.
+
+Beans available throughout the Spring container.
 
