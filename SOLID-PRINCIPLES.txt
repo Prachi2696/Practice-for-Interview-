@@ -1,0 +1,213 @@
+SOLID PRINCIPLES:
+1. Single Responsibility Principle - A class have one and only one reason to change.
+2. Open / Close Principle - Open for extension and close for modification
+3. Liskov's Substition Principle - Subtype must be substituable for their base type
+4. Interface Segregation Principle- The dependency of one class to another one should depend on the smallest possible interface /do not force any client to implement an interface which is irrelevant to them 
+avoiding fat interface and give preference to many small client-specific interfaces.
+5. Dependency Inversion Principle - depend upon abstraction(interfaces) not on concrete classes
+
+Here are **easy and relatable Java examples** for each **SOLID Principle**, great for **interview preparation** or **quick understanding**:
+
+---
+
+## ✅ 1. **Single Responsibility Principle (SRP)**
+
+**Definition:** A class should have only one reason to change.
+
+### ❌ Bad Example:
+
+```java
+class Report {
+    public String getReportData() {
+        return "Report Data";
+    }
+    public void saveToFile() {
+        // code to save to file
+    }
+}
+```
+
+### ✅ Good Example:
+
+```java
+class Report {
+    public String getReportData() {
+        return "Report Data";
+    }
+}
+
+class ReportSaver {
+    public void saveToFile(Report report) {
+        // Save logic
+    }
+}
+```
+
+---
+
+## ✅ 2. **Open/Closed Principle (OCP)**
+
+**Definition:** Software should be open for extension but closed for modification.
+
+### ❌ Bad Example:
+
+```java
+class AreaCalculator {
+    public double calculate(Object shape) {
+        if (shape instanceof Circle) {
+            // calculate circle area
+        } else if (shape instanceof Rectangle) {
+            // calculate rectangle area
+        }
+        return 0;
+    }
+}
+```
+
+### ✅ Good Example:
+
+```java
+interface Shape {
+    double area();
+}
+
+class Circle implements Shape {
+    public double area() {
+        return Math.PI * 3 * 3;
+    }
+}
+
+class Rectangle implements Shape {
+    public double area() {
+        return 4 * 5;
+    }
+}
+
+class AreaCalculator {
+    public double calculate(Shape shape) {
+        return shape.area();
+    }
+}
+```
+
+---
+
+## ✅ 3. **Liskov Substitution Principle (LSP)**
+
+**Definition:** Subclasses must be substitutable for their base class.
+
+### ❌ Bad Example:
+
+```java
+class Bird {
+    void fly() {}
+}
+
+class Ostrich extends Bird {
+    void fly() { throw new UnsupportedOperationException(); }
+}
+```
+
+### ✅ Good Example:
+
+```java
+interface Bird {}
+
+interface FlyingBird extends Bird {
+    void fly();
+}
+
+class Sparrow implements FlyingBird {
+    public void fly() {
+        // fly logic
+    }
+}
+
+class Ostrich implements Bird {
+    // can't fly, but still a bird
+}
+```
+
+---
+
+## ✅ 4. **Interface Segregation Principle (ISP)**
+
+**Definition:** Clients should not be forced to depend on interfaces they do not use.
+
+### ❌ Bad Example:
+
+```java
+interface Machine {
+    void print();
+    void scan();
+    void fax();
+}
+
+class OldPrinter implements Machine {
+    public void print() {}
+    public void scan() {}
+    public void fax() { throw new UnsupportedOperationException(); }
+}
+```
+
+### ✅ Good Example:
+
+```java
+interface Printer {
+    void print();
+}
+
+interface Scanner {
+    void scan();
+}
+
+class SimplePrinter implements Printer {
+    public void print() {}
+}
+```
+
+---
+
+## ✅ 5. **Dependency Inversion Principle (DIP)**
+
+**Definition:** High-level modules should depend on abstractions, not concrete classes.
+
+### ❌ Bad Example:
+
+```java
+class MySQLDatabase {
+    void connect() {}
+}
+
+class App {
+    MySQLDatabase db = new MySQLDatabase();
+    void start() {
+        db.connect();
+    }
+}
+```
+
+### ✅ Good Example:
+
+```java
+interface Database {
+    void connect();
+}
+
+class MySQLDatabase implements Database {
+    public void connect() {}
+}
+
+class App {
+    Database db;
+    App(Database db) {
+        this.db = db;
+    }
+    void start() {
+        db.connect();
+    }
+}
+```
+
+---
+
