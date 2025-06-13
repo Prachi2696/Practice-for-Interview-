@@ -68,3 +68,98 @@ Example:
 
 The SAGA Execution Coordinator starts the saga and tells the Order Service to create the order.
 Once the Order Service succeeds, the orchestrator tells the Payment Service to process the payment, and so on.
+
+CIRCUIT - BREAKER
+
+Here's a **concise and well-structured summary of the Circuit Breaker Pattern** for **interview preparation**:
+
+---
+
+## ✅ **Circuit Breaker Pattern – Interview Notes**
+
+### 📌 **What is Circuit Breaker Pattern?**
+
+A **resilience pattern** that prevents continuous attempts to a failing service. It helps avoid cascading failures and allows graceful recovery.
+
+---
+
+### 🔄 **States of a Circuit Breaker:**
+
+| State         | Description                                                                                    |
+| ------------- | ---------------------------------------------------------------------------------------------- |
+| **Closed**    | All requests go through. Failures are tracked.                                                 |
+| **Open**      | Requests are blocked immediately. Fallback is returned.                                        |
+| **Half-Open** | A few trial requests are allowed. If successful, goes back to Closed. If failed, back to Open. |
+
+---
+
+### ⚙️ **Working Flow:**
+
+1. Service calls another microservice (dependency).
+2. If failure rate crosses a **threshold**, circuit opens.
+3. After **timeout**, enters **Half-Open**.
+4. If service recovers → Closed; else → Open again.
+
+---
+
+### ✅ **When to Use:**
+
+* Service calls third-party or unreliable APIs.
+* Operations are costly or time-sensitive.
+* You want to prevent **system-wide failure**.
+
+---
+
+### 🧩 **Benefits:**
+
+* Prevents **cascading failures**.
+* Improves **user experience** with fast fallback.
+* Allows dependent service to **recover** without overload.
+* Adds **fault tolerance** in distributed systems.
+
+---
+
+### ⚠️ **Challenges:**
+
+* Adds **complexity** to service logic.
+* Requires careful **threshold tuning**.
+* Needs **realistic testing** of failure scenarios.
+* Multiple circuit breakers = **observability issues**.
+
+---
+
+### 🛠️ **Popular Libraries/Tools:**
+
+| Tool                | Platform       | Notes                                      |
+| ------------------- | -------------- | ------------------------------------------ |
+| **Hystrix**         | Java (Netflix) | Now in maintenance mode                    |
+| **Resilience4j**    | Java           | Lightweight, Spring Boot compatible        |
+| **Spring Cloud CB** | Java (Spring)  | Abstraction over Hystrix, Resilience4j     |
+| **Polly**           | .NET           | Fluent, policy-driven resilience library   |
+| **Istio**           | Kubernetes     | Mesh-level circuit breaker (network layer) |
+
+---
+
+### 📥 **Steps to Implement:**
+
+1. **Identify external dependencies.**
+2. **Choose** a circuit breaker library.
+3. **Integrate** it into your service code.
+4. Define **failure thresholds** and **timeouts**.
+5. Provide **fallback logic**.
+6. **Monitor metrics** (success/fail rate, state changes).
+7. Tune parameters as needed.
+8. Test in **realistic failure scenarios**.
+
+---
+
+### 📌 **Use Cases:**
+
+* E-commerce: Payment gateway failure
+* API Aggregators: Upstream service delay
+* Service Mesh: Per-service traffic control
+* Rate-limiting + Retry control
+
+---
+
+Let me know if you'd like this as a **PDF cheat sheet**, or want a **real-world Java example with Resilience4j**!
