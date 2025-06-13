@@ -621,6 +621,171 @@ In Spring Framework, **Spring Container** is the core part responsible for manag
 
 ---
 
-Let me know if you want code examples for each!
+### ✅ Types of Queries in Hibernate
+
+Hibernate supports several types of queries to interact with the database using different approaches:
+
+---
+
+### 1. **HQL (Hibernate Query Language)**
+
+* **Object-oriented** (not table-oriented like SQL)
+* Works with **Entity class names** and **properties**, not table names or column names.
+
+```java
+Query query = session.createQuery("FROM Employee WHERE salary > :minSalary");
+query.setParameter("minSalary", 50000);
+List<Employee> list = query.list();
+```
+
+---
+
+### 2. **Native SQL Query**
+
+* You can run **plain SQL** queries (actual table & column names).
+
+```java
+SQLQuery query = session.createSQLQuery("SELECT * FROM employee WHERE salary > ?");
+query.setParameter(0, 50000);
+query.addEntity(Employee.class); // Maps result to entity
+List<Employee> list = query.list();
+```
+
+---
+
+### 3. **Criteria Query (Deprecated in latest versions)**
+
+* Programmatic and type-safe query building
+* Good for **dynamic queries** but more verbose
+
+```java
+Criteria criteria = session.createCriteria(Employee.class);
+criteria.add(Restrictions.gt("salary", 50000));
+List<Employee> list = criteria.list();
+```
+
+---
+
+### 4. **CriteriaQuery (JPA 2.0 – Modern way)**
+
+* Type-safe and strongly recommended for modern Hibernate + JPA use
+
+```java
+CriteriaBuilder cb = session.getCriteriaBuilder();
+CriteriaQuery<Employee> cq = cb.createQuery(Employee.class);
+Root<Employee> root = cq.from(Employee.class);
+cq.select(root).where(cb.gt(root.get("salary"), 50000));
+List<Employee> list = session.createQuery(cq).getResultList();
+```
+
+---
+
+### 5. **Named Query**
+
+* Predefined queries defined in the entity using annotations or XML.
+
+**Using Annotation:**
+
+```java
+@Entity
+@NamedQuery(
+  name = "Employee.findByName",
+  query = "FROM Employee WHERE name = :name"
+)
+public class Employee { ... }
+```
+
+**Calling it:**
+
+```java
+Query query = session.createNamedQuery("Employee.findByName");
+query.setParameter("name", "Prachi");
+List<Employee> list = query.list();
+```
+
+---
+
+### Summary Table:
+
+| Query Type          | Based On     | Type-Safe | Use Case                              |
+| ------------------- | ------------ | --------- | ------------------------------------- |
+| HQL                 | Entity Class | ❌         | Most common for object-level querying |
+| Native SQL          | SQL Tables   | ❌         | When specific SQL features are needed |
+| Criteria (old)      | Entity Class | ✅         | Dynamic filters (deprecated)          |
+| CriteriaQuery (JPA) | Entity Class | ✅✅        | Modern, type-safe, best practice      |
+| Named Query         | HQL/SQL      | ❌         | Reusable queries defined in entity    |
+
+---
+
+When a query has **too many joins**, especially in a complex domain model with multiple entities, your choice of query type in Hibernate depends on **performance**, **maintainability**, and **flexibility**.
+
+Here’s how to decide:
+
+---
+
+### ✅ **Best Option: Native SQL Query**
+
+* Use **Native SQL** when the join logic is complex, or the performance needs fine-tuning.
+* Native SQL lets you fully control the SQL syntax, indexes, hints, and optimizations.
+* Suitable for **complex joins, subqueries, and database-specific features**.
+
+```java
+SQLQuery query = session.createSQLQuery(
+    "SELECT e.id, d.name, p.project_name FROM employee e " +
+    "JOIN department d ON e.dept_id = d.id " +
+    "JOIN project p ON e.project_id = p.id " +
+    "WHERE e.status = :status"
+);
+query.setParameter("status", "ACTIVE");
+List<Object[]> result = query.list();
+```
+
+---
+
+### ✅ **Alternative: JPQL/HQL (if still manageable)**
+
+* If the joins are on mapped entity relationships (e.g., `@OneToMany`, `@ManyToOne`), HQL or JPQL **can be clean and readable**, but not as performant as raw SQL for very large or complex joins.
+
+```java
+String hql = "SELECT e FROM Employee e " +
+             "JOIN e.department d " +
+             "JOIN e.project p " +
+             "WHERE e.status = :status";
+List<Employee> result = session.createQuery(hql, Employee.class)
+                               .setParameter("status", "ACTIVE")
+                               .getResultList();
+```
+
+---
+
+### ❌ Avoid Criteria API for Too Many Joins
+
+* **Old Criteria API** (`session.createCriteria`) is deprecated.
+* **New CriteriaQuery API** becomes **very verbose** for many joins and harder to maintain.
+
+---
+
+### ✅ Tips for Better Performance:
+
+* Use `JOIN FETCH` in HQL to reduce N+1 queries.
+* Use pagination (`setFirstResult`, `setMaxResults`).
+* Add indexes to foreign key columns.
+* In Native SQL, optimize using **EXPLAIN PLAN** or **query hints** if supported by your DB.
+
+---
+
+### 💡 Summary:
+
+| Use Case                                  | Recommended Query Type |
+| ----------------------------------------- | ---------------------- |
+| Complex joins across many tables          | ✅ Native SQL           |
+| Joins on mapped entities, not too complex | ✅ HQL/JPQL             |
+| Need for type-safe dynamic queries        | ⚠️ CriteriaQuery (JPA) |
+| Performance tuning required               | ✅ Native SQL           |
+
+---
+
+Would you like a comparison of how a 3-entity join looks in SQL vs HQL vs CriteriaQuery?
+
 
 
