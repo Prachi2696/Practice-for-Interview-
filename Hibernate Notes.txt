@@ -454,5 +454,72 @@ If the class is **your own** and you want **auto-detection**, use `@Component`.
 If the class comes from a **third-party library**, and you **can't annotate it**, use `@Bean`.
 
 ---
+In Spring, the **scope of a bean** defines **how many instances** of a bean are created and **how long** those instances live in the application context.
 
-Would you like a visual diagram or code project demonstrating both in action?
+---
+
+### 🔹 Common Bean Scopes in Spring
+
+| Scope                     | Description                                                                 |
+| ------------------------- | --------------------------------------------------------------------------- |
+| **singleton** *(default)* | Only **one** instance per Spring container. All requests get the same bean. |
+| **prototype**             | A **new instance** is created every time the bean is requested.             |
+| **request** (Web)         | One bean instance per HTTP request.                                         |
+| **session** (Web)         | One bean instance per HTTP session.                                         |
+| **application** (Web)     | One bean instance per ServletContext (application).                         |
+| **websocket** (Web)       | One bean instance per WebSocket session.                                    |
+
+---
+
+### 🔧 How to Set Bean Scope
+
+Use the `@Scope` annotation on a Spring component or bean method.
+
+#### 🟢 Singleton Example (default):
+
+```java
+@Component
+public class MyService {
+}
+```
+
+Equivalent to:
+
+```java
+@Component
+@Scope("singleton")
+public class MyService {
+}
+```
+
+#### 🔁 Prototype Example:
+
+```java
+@Component
+@Scope("prototype")
+public class MyPrototypeService {
+}
+```
+
+---
+
+### 📌 Important Notes
+
+* **Singleton beans** are created **eagerly by default** when the Spring container starts.
+* **Prototype beans** are created **lazily** (only when requested).
+* **Web scopes** like `request`, `session`, etc., only work in **Spring Web Applications**.
+
+---
+
+### 🧠 Interview Tip
+
+> *"What is the default scope of a Spring bean?"*
+> ✅ Answer: `singleton`.
+
+> *"When would you use prototype scope?"*
+> ✅ Answer: When each user/action needs a **fresh instance**, like a non-shared configuration object or a custom form handler.
+
+---
+
+
+
