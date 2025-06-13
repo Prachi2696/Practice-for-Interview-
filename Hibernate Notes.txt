@@ -529,4 +529,98 @@ Beans defined with singleton scope.
 Beans that are shared across multiple modules or components.
 
 Beans available throughout the Spring container.
+----------------------------
+In Spring Framework, **Spring Container** is the core part responsible for managing the lifecycle and configuration of application objects (beans). There are **four main types of Spring containers**, depending on which part of the framework you're using:
+
+---
+
+### ✅ 1. **BeanFactory** (Basic Container)
+
+* **Interface**: `org.springframework.beans.factory.BeanFactory`
+* **Features**:
+
+  * Basic dependency injection container
+  * Lazy initialization (beans are created only when needed)
+* **Use Case**: Lightweight applications with minimal resources
+* **Example**:
+
+  ```java
+  Resource resource = new ClassPathResource("beans.xml");
+  BeanFactory factory = new XmlBeanFactory(resource);
+  ```
+
+---
+
+### ✅ 2. **ApplicationContext** (Advanced Container)
+
+* **Interface**: `org.springframework.context.ApplicationContext`
+* **Features** (extends BeanFactory):
+
+  * Eager initialization (creates beans at startup)
+  * Internationalization (i18n)
+  * Event propagation
+  * Bean post-processing
+  * Annotation support
+* **Use Case**: Recommended for most real-world Spring applications
+* **Common Implementations**:
+
+  * `ClassPathXmlApplicationContext`
+  * `FileSystemXmlApplicationContext`
+  * `AnnotationConfigApplicationContext`
+* **Example**:
+
+  ```java
+  ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+  ```
+
+---
+
+### ✅ 3. **WebApplicationContext** (For Web Applications)
+
+* **Extends**: `ApplicationContext`
+* **Specialized For**: Web environments (Spring MVC)
+* **Features**:
+
+  * Scoped beans (request, session, etc.)
+  * Integration with `ServletContext`
+* **Use Case**: Used in Spring MVC-based applications
+* **Defined**: In `web.xml` or via `DispatcherServlet`
+* **Example**:
+  Defined as:
+
+  ```xml
+  <servlet>
+      <servlet-name>dispatcher</servlet-name>
+      <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+      <load-on-startup>1</load-on-startup>
+  </servlet>
+  ```
+
+---
+
+### ✅ 4. **AnnotationConfigApplicationContext** (Java-based Configuration)
+
+* **Introduced in**: Spring 3.x+
+* **Use Case**: When you use `@Configuration` and Java-based config instead of XML
+* **Example**:
+
+  ```java
+  AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(MyConfig.class);
+  ```
+
+---
+
+### 📝 Summary Table:
+
+| Container Type                     | Interface/Class                      | Use Case                      | XML Support | Java Config Support |
+| ---------------------------------- | ------------------------------------ | ----------------------------- | ----------- | ------------------- |
+| BeanFactory                        | `BeanFactory`                        | Basic, lightweight apps       | ✅           | ❌                   |
+| ApplicationContext                 | `ApplicationContext`                 | General-purpose Spring apps   | ✅           | ✅                   |
+| WebApplicationContext              | `WebApplicationContext`              | Web (Spring MVC) apps         | ✅           | ✅                   |
+| AnnotationConfigApplicationContext | `AnnotationConfigApplicationContext` | Java-config-based Spring apps | ❌           | ✅                   |
+
+---
+
+Let me know if you want code examples for each!
+
 
