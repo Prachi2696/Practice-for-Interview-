@@ -387,3 +387,72 @@ public class MyInterceptor extends EmptyInterceptor {
       System.out.println("postFlush");
    }
 }
+
+
+--------------------------------------------
+difference b/w @Bean and @Component
+
+Here’s a simple explanation of `@Bean` and `@Component` annotations in Spring, along with differences and examples — perfect for interview prep:
+
+---
+
+### ✅ `@Component` Annotation
+
+* **Purpose:** Marks a class as a Spring-managed component (bean).
+* **Use Case:** Applied to **custom classes** so Spring can auto-detect and register them using **component scanning**.
+* **Required:** Class must be picked up via `@ComponentScan`.
+
+### 🔧 Example:
+
+```java
+@Component
+public class EmailService {
+    public void sendEmail(String msg) {
+        System.out.println("Sending: " + msg);
+    }
+}
+```
+
+---
+
+### ✅ `@Bean` Annotation
+
+* **Purpose:** Declares a method that **manually creates and returns a Spring bean**.
+* **Use Case:** Used inside a `@Configuration` class when **you want full control** over bean creation.
+* **Required:** Defined inside a class annotated with `@Configuration`.
+
+### 🔧 Example:
+
+```java
+@Configuration
+public class AppConfig {
+
+    @Bean
+    public EmailService emailService() {
+        return new EmailService();
+    }
+}
+```
+
+---
+
+### 🔍 Key Differences Between `@Bean` and `@Component`
+
+| Feature               | `@Component`                     | `@Bean`                                         |
+| --------------------- | -------------------------------- | ----------------------------------------------- |
+| **Applies To**        | Class                            | Method                                          |
+| **Bean Registration** | Automatic via classpath scanning | Manual via configuration class                  |
+| **Customization**     | Limited                          | High control over object creation               |
+| **Use In**            | Service, DAO, Controller layers  | Third-party libraries, or non-annotated classes |
+| **Declared In**       | The class itself                 | A method inside a `@Configuration` class        |
+
+---
+
+### 🧠 Interview Tip:
+
+If the class is **your own** and you want **auto-detection**, use `@Component`.
+If the class comes from a **third-party library**, and you **can't annotate it**, use `@Bean`.
+
+---
+
+Would you like a visual diagram or code project demonstrating both in action?
