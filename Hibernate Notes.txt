@@ -323,6 +323,13 @@ Detached – Once the session is closed, the object becomes detached.
 
 Removed – Marked for deletion from DB.
 
+| Cache Level  | Scope          | Default | Purpose                             |
+| ------------ | -------------- | ------- | ----------------------------------- |
+| First-level  | Session        | Yes     | Avoid repeat queries in one session |
+| Second-level | SessionFactory | No      | Share cache across sessions         |
+| Query Cache  | Query results  | No      | Cache frequent query results        |
+
+
 🧩 Role of Interceptor
 The Interceptor interface provides callbacks (hook methods) that let you interact with these state transitions.
 
