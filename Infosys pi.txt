@@ -1,0 +1,13 @@
+singleton 
+prop drilling
+unit testing react js
+redux
+jwt
+microservice communication
+method reference
+functional interface
+type interface
+how we secure the spring boot application 
+global exception
+how we create bean
+types of design pattern
